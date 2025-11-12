@@ -1,3 +1,4 @@
 # dacs_project
 ''py
-pip install -r requiments.txt
+pip install -r requiments.tx
+''
