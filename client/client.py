@@ -33,7 +33,7 @@ def login(username, device_id):
                        json={"username": username, "session": data["session"], "response": response})
     print(r2.json())
 
-def privateKeyAES(private_pem: bytes, user ,filename: str = None,) -> None:
+def privateKeyAES(private_pem: bytes, user,filename: str = None) -> None:
 
     # Generate random PIN
     pin = pin_generator()
@@ -85,15 +85,17 @@ def gen_public_private_key(user):
         public_pem = public_key.public_bytes(
         encoding=Encoding.PEM,
         format=PublicFormat.SubjectPublicKeyInfo)
-        name = str(uuid.uuid4())+".pem"
-        privateKeyAES(private_pem,user)
-        with open(name,"wb") as file:
-            file.write(private_pem)
+        name = str(uuid.uuid4())+".json"
+        privateKeyAES(private_pem,user,name)
+        
         file={user: {"Pub_key":public_pem.decode("utf-8"),"user":user,"device_id":["id_123234231"]} }
+        
         res = requests.post(f"{SERVER}/recive_public_key", json=file)
+        if not res.ok:
+            raise Exception("Request Not Successfull Executed")
         print(f"Saved Private Key as f{name}.pem")
     except Exception as e:
-        print(f"Error Occured f{str(e)}")
+        print(f"Error Occured : f{str(e)}")
     
 
 
