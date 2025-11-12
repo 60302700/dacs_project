@@ -10,16 +10,16 @@ source activate
 - Use TinyDB For The System Cause Why is the Users and rest of data only in ram?
 
 
-- [ ] Phase 1: Client–Server Communication Setup
+- [x] Phase 1: Client–Server Communication Setup
 Build a basic local client and server that can register a user and attempt a login using
 simple request/response APIs. The goal is just to get the communication and local user
 storage working (no real crypto yet).
 
-- [ ] Phase 2: Symmetric Protection of Local Secrets
+- [x] Phase 2: Symmetric Protection of Local Secrets
 On the client, generate a placeholder secret and store it encrypted with AES (e.g. AES256). Decrypt it only in memory when needed. This establishes secure local storage for
 private credentials.
 
-- [ ] Phase 3: Key Pair Generation and Registration
+- [x] Phase 3: Key Pair Generation and Registration
 Have the client generate a real public/private key pair. Keep the private key locally
 (encrypted with AES from Phase 2). Send only the public key to the server and
 associate it with the user/device. The server now knows who you are by public key, not
