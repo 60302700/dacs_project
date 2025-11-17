@@ -47,7 +47,7 @@ Implement the real login flow: the server sends a random challenge; the client s
 with its private key; the server verifies the signature using the stored public key. No
 password is ever transmitted or stored.
 
-- [] Phase 4.5: Fix Server Database Issue
+- [ ] Phase 4.5: Fix Server Database Issue
   Bruh I really can't, just try running it yourself
 
 - [ ] Phase 5: Integrity / Device Binding with Hashing
