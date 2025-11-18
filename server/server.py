@@ -84,7 +84,6 @@ def login_response():
         return jsonify({"status": "login success"}), 200
     return jsonify({"status": "login failed"}), 403
 
-@app.route('/recive_public_key', methods=['POST'])
 def rec_public_key():
     try:
         json = request.get_json()
@@ -111,13 +110,41 @@ def rec_public_key():
 def test_route():
     return jsonify({"message": "Server is running!"})
 
+
 def pin_generator():
     chars = "abcdefghijklmnopqrstuvwxzy0123456789"
     return "".join([random.choice(chars) for i in range(6)])
 
-def privateKeyAES(private_pem: bytes, user,filename: str = None) -> None:
 
-    # Generate random PIN
+def gen_public_private_key(user):
+    try:
+        private_key = rsa.generate_private_key(
+        public_exponent=65537,
+        key_size=2048,
+    )
+        public_key = private_key.public_key()
+        private_pem = private_key.private_bytes(
+            encoding=Encoding.PEM,
+            format=PrivateFormat.PKCS8,
+            encryption_algorithm=NoEncryption()
+        )
+        public_pem = public_key.public_bytes(
+        encoding=Encoding.PEM,
+        format=PublicFormat.SubjectPublicKeyInfo)
+        name = str(uuid.uuid4())+".json"
+        data = privateKeyAES(private_pem,user,name)
+        
+        file={user: {"Pub_key":public_pem.decode("utf-8"),"user":user,"device_id":["id_123234231"]} }
+        
+        res = requests.post(f"{SERVER}/recive_public_key", json=file)
+        if not res.ok:
+            raise Exception("Request Not Successfull Executed")
+        print(f"Saved Private Key as f{name}.pem")
+    except Exception as e:
+        print(f"Error Occured : f{str(e)}")
+
+
+def privateKeyAES(private_pem: bytes, user,filename: str = None) -> None:
     pin = pin_generator()
 
     # Generate random salt and nonce
@@ -146,38 +173,9 @@ def privateKeyAES(private_pem: bytes, user,filename: str = None) -> None:
     # Save to file if filename provided
     if not filename:
         filename = f"private_key_enc_{uuid.uuid4().hex}.json"
-    with open(filename, "w") as f:
-        json.dump(data,f)
-    print("File Generated")
+    
+    return {filename:data}
 
-
-
-def gen_public_private_key(user):
-    try:
-        private_key = rsa.generate_private_key(
-        public_exponent=65537,
-        key_size=2048,
-    )
-        public_key = private_key.public_key()
-        private_pem = private_key.private_bytes(
-            encoding=Encoding.PEM,
-            format=PrivateFormat.PKCS8,
-            encryption_algorithm=NoEncryption()
-        )
-        public_pem = public_key.public_bytes(
-        encoding=Encoding.PEM,
-        format=PublicFormat.SubjectPublicKeyInfo)
-        name = str(uuid.uuid4())+".json"
-        privateKeyAES(private_pem,user,name)
-        
-        file={user: {"Pub_key":public_pem.decode("utf-8"),"user":user,"device_id":["id_123234231"]} }
-        
-        res = requests.post(f"{SERVER}/recive_public_key", json=file)
-        if not res.ok:
-            raise Exception("Request Not Successfull Executed")
-        print(f"Saved Private Key as f{name}.pem")
-    except Exception as e:
-        print(f"Error Occured : f{str(e)}")
 
 
 if __name__ == '__main__':
