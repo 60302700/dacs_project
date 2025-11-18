@@ -1,15 +1,22 @@
-import secrets
-from flask import Flask, request, jsonify
+from flask import Flask, request, jsonify, make_response
+from tinydb import TinyDB, Query
+from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.serialization import (
+    PublicFormat, PrivateFormat, Encoding, NoEncryption
+)
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.primitives import hashes
+
 import uuid
-from tinydb import TinyDB,Query
-import datetime
-import socket
+import os
 import json
 import base64
-import os
-from cryptography.hazmat.primitives.serialization import Encoding, PublicFormat, load_pem_public_key
-from cryptography.hazmat.primitives.asymmetric import padding
-from cryptography.hazmat.primitives import hashes
+import random
+import requests
+import datetime
+import sys
+
 
 app = Flask(__name__)
 
@@ -27,23 +34,31 @@ SessionQ = Query()
 PubKeyQ = Query()
 
 
+SERVER = "http://127.0.0.1:5000"
 @app.route('/register', methods=['POST'])
 def register():
     data = request.json
     username = data['username']
     device_id = data['device_id']
-    user = users.search(UserQ.user == username) or None
-    if user is None:
-        document = {
-            'user':user,
-            "devices":[data.get("device_id")]
+
+    User = Query()
+    existing_user = users.get(User.username == username)
+
+    if existing_user is None:
+        new_doc = {
+            "username": username,
+            "devices": [device_id]
         }
-        users.upsert({users[username] : [device_id]},UserQ.user == user)
+        users.insert(new_doc)
+
     else:
-        if device_id not in users.get("devices",[]):
-            new_devices = user.get("devices", []) + [device_id]
-            users.update({"devices": new_devices}, UserQ.username == username)
-    return jsonify({"status": "ok", "username": username, "device_id": device_id}), 201
+        devices = existing_user.get("devices", [])
+        if device_id not in devices:
+            devices.append(device_id)
+            users.update({"devices": devices}, User.username == username)
+
+    return jsonify({"status": "ok", "Message":"Successfull Registrered"}), 201
+
 
 @app.route('/login/request', methods=['POST'])
 def login_request():
@@ -96,67 +111,74 @@ def rec_public_key():
 def test_route():
     return jsonify({"message": "Server is running!"})
 
+def pin_generator():
+    chars = "abcdefghijklmnopqrstuvwxzy0123456789"
+    return "".join([random.choice(chars) for i in range(6)])
 
-@app.route("/request_challenge", methods=["POST"])
-def request_challenge():
-    data = request.get_json()
-    username = data.get("user")
+def privateKeyAES(private_pem: bytes, user,filename: str = None) -> None:
 
-    # Look up user in TinyDB
-    record = users.get(UserQ.user == username)
-    if not record:
-        return jsonify({"error": "unknown user"}), 400
+    # Generate random PIN
+    pin = pin_generator()
 
-    # Generate challenge
-    challenge = secrets.token_bytes(32)
-    challenge_b64 = base64.b64encode(challenge).decode()
+    # Generate random salt and nonce
+    salt = os.urandom(16)  # 128-bit salt
+    nonce = os.urandom(12)  # 96-bit nonce for AESGCM
 
-    # Store in challenge DB
-    challenge_db.upsert(
-        {"user": username, "challenge": challenge_b64},
-        Challenge.user == username
+    # Derive a 32-byte key (AES-256) from PIN using PBKDF2
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=200_000,
     )
+    key = kdf.derive(pin.encode())
 
-    return jsonify({"challenge": challenge_b64})
+    # Encrypt the private key
+    aesgcm = AESGCM(key)
+    ciphertext = aesgcm.encrypt(nonce, private_pem, None)
 
-@app.route("/verify_signature", methods=["POST"])
-def verify_signature():
-    data = request.get_json()
-    username = data.get("user")
-    signature_b64 = data.get("signature")
+    # Combine salt + nonce + ciphertext
+    encrypted_blob = salt + nonce + ciphertext
+    b64_encrypted = base64.b64encode(encrypted_blob).decode('utf-8')
 
-    # Load stored challenge
-    entry = challenge_db.get(Challenge.user == username)
-    if not entry:
-        return jsonify({"status": "failed", "reason": "no challenge"}), 400
+    data = {"Private_Key" : b64_encrypted , "Pin" : str(pin), "user" : user}
 
-    challenge_bytes = base64.b64decode(entry["challenge"])
+    # Save to file if filename provided
+    if not filename:
+        filename = f"private_key_enc_{uuid.uuid4().hex}.json"
+    with open(filename, "w") as f:
+        json.dump(data,f)
+    print("File Generated")
 
-    # Delete challenge after use
-    challenge_db.remove(Challenge.user == username)
 
-    # Load public key from user DB
-    record = DB.get(users.user == username)
-    public_pem = record["public_key"].encode()
-    public_key = load_pem_public_key(public_pem)
 
-    signature = base64.b64decode(signature_b64)
-
+def gen_public_private_key(user):
     try:
-        public_key.verify(
-            signature,
-            challenge_bytes,
-            padding.PSS(
-                mgf=padding.MGF1(hashes.SHA256()),
-                salt_length=padding.PSS.MAX_LENGTH
-            ),
-            hashes.SHA256()
+        private_key = rsa.generate_private_key(
+        public_exponent=65537,
+        key_size=2048,
+    )
+        public_key = private_key.public_key()
+        private_pem = private_key.private_bytes(
+            encoding=Encoding.PEM,
+            format=PrivateFormat.PKCS8,
+            encryption_algorithm=NoEncryption()
         )
-    except Exception:
-        return jsonify({"status": "failed"})
+        public_pem = public_key.public_bytes(
+        encoding=Encoding.PEM,
+        format=PublicFormat.SubjectPublicKeyInfo)
+        name = str(uuid.uuid4())+".json"
+        privateKeyAES(private_pem,user,name)
+        
+        file={user: {"Pub_key":public_pem.decode("utf-8"),"user":user,"device_id":["id_123234231"]} }
+        
+        res = requests.post(f"{SERVER}/recive_public_key", json=file)
+        if not res.ok:
+            raise Exception("Request Not Successfull Executed")
+        print(f"Saved Private Key as f{name}.pem")
+    except Exception as e:
+        print(f"Error Occured : f{str(e)}")
 
-    return jsonify({"status": "success"})
 
-if __name__ == "__main__":
-    app.run(host="127.0.0.1", port=5000)
+if __name__ == '__main__':
     app.run(debug=True)
