@@ -34,6 +34,8 @@ UserQ = Query()
 SessionQ = Query()
 PubKeyQ = Query()
 
+
+SERVER = "http://127.0.0.1:5000"
 @app.route('/register', methods=['POST'])
 def register():
     data = request.json
