@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response
+from flask import Flask, request, jsonify, make_response,Response
 from tinydb import TinyDB, Query
 from cryptography.hazmat.primitives.asymmetric import rsa
 from cryptography.hazmat.primitives.serialization import (
@@ -10,17 +10,13 @@ from cryptography.hazmat.primitives import hashes
 
 import uuid
 import os
-import json
 import base64
-import random
 import requests
-import datetime
-import sys
 
 
 app = Flask(__name__)
 
-DB = TinyDB("Users.json")
+DB = TinyDB("Database.json")
 challenge_db = TinyDB("challenges.json")
 
 users = DB.table("users")
@@ -34,39 +30,51 @@ SessionQ = Query()
 PubKeyQ = Query()
 
 
+LoginPage = open("webui/login.html").read()
+registerPage = open("webui/register.html").read()
+stylecss = open("webui/style.css").read()
+jsScript = open("webui/script.js").read()
+
 SERVER = "http://127.0.0.1:5000"
+
 @app.route('/register', methods=['POST'])
 def register():
-    data = request.json
-    username = data['username']
-    device_id = data['device_id']
+    try:
+        data = request.json
+        username = data['username']
+        device_id = data['device_id']
 
-    User = Query()
-    existing_user = users.get(User.username == username)
-
-    if existing_user is None:
-        new_doc = {
-            "username": username,
-            "devices": [device_id]
-        }
-        users.insert(new_doc)
-
-    else:
-        devices = existing_user.get("devices", [])
-        if device_id not in devices:
-            devices.append(device_id)
-            users.update({"devices": devices}, User.username == username)
-
-    return jsonify({"status": "ok", "Message":"Successfull Registrered"}), 201
-
+        User = Query()
+        existing_user = users.get(User.username == username)
+        if existing_user is not None:
+            return jsonify({"status": "Err", "msg":"User Already Exsists/Registered"}), 201
+    
+        if existing_user is None:
+            new_doc = {
+                "username": username,
+                "devices": [device_id]
+            }
+            users.insert(new_doc)
+        
+        """else:
+            devices = existing_user.get("devices", [])
+            if device_id not in devices:
+                devices.append(device_id)
+                users.update({"devices": devices}, User.username == username)"""
+        
+        data =  gen_public_private_key(username)
+        return jsonify({"status": "ok", "msg":"Successfull Registrered","file":data}), 201
+    except Exception as e:
+        print(f"{str(e)}")
 
 @app.route('/login/request', methods=['POST'])
 def login_request():
     data = request.json
     username = data['username']
     device_id = data['device_id']
+    print(data)
     if username not in users or device_id not in users[username]["devices"]:
-        return jsonify({"error": "User or device not registered"}), 400
+        return jsonify({"status" : "Err","msg": "User or device not registered"}), 400
     session_id = str(uuid.uuid4())
     challenge = str(uuid.uuid4())
     login_sessions[session_id] = {"username": username, "challenge": challenge}
@@ -84,23 +92,18 @@ def login_response():
         return jsonify({"status": "login success"}), 200
     return jsonify({"status": "login failed"}), 403
 
-def rec_public_key():
+def rec_public_key(publicKey,user,Device_id):
+    #rec_public_key(public_pem.decode("utf-8"),user,"id_123234231")
     try:
-        json = request.get_json()
-        print(json)
-        id = list(json.keys())[0]
-        print(id)
-        data = json.get(id)
-        print(data)
         document = {
-            'record_id':id,
-            'public_key':data.get("Pub_key"),
-            "device":data.get("device_id")
+            'record_id':user,
+            'public_key':publicKey,
+            "device":Device_id,
         }
         public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
-        return jsonify({"status":"OK","msg" :"successfully add to db"}) , 200
+        return True
     except Exception as e:
-        return jsonify({"status":"Err","msg":str(e)}), 500
+        return {"status":"Err","msg":str(e)}
 
 
 ##### PHASE 4 BY ERLAND #####
@@ -112,11 +115,10 @@ def test_route():
 
 
 def pin_generator():
-    chars = "abcdefghijklmnopqrstuvwxzy0123456789"
-    return "".join([random.choice(chars) for i in range(6)])
+    return hex(int.from_bytes(os.urandom(32)))[2:]
 
 
-def gen_public_private_key(user):
+def gen_public_private_key(user:str) -> tuple:
     try:
         private_key = rsa.generate_private_key(
         public_exponent=65537,
@@ -134,17 +136,16 @@ def gen_public_private_key(user):
         name = str(uuid.uuid4())+".json"
         data = privateKeyAES(private_pem,user,name)
         
-        file={user: {"Pub_key":public_pem.decode("utf-8"),"user":user,"device_id":["id_123234231"]} }
-        
-        res = requests.post(f"{SERVER}/recive_public_key", json=file)
-        if not res.ok:
-            raise Exception("Request Not Successfull Executed")
-        print(f"Saved Private Key as f{name}.pem")
+        rec_public_key(public_pem.decode("utf-8"),user,"id_123234231")
+
+        return data
+
     except Exception as e:
-        print(f"Error Occured : f{str(e)}")
+        return {"status": "Err", "msg":f"{str(e)}"}
+        
 
 
-def privateKeyAES(private_pem: bytes, user,filename: str = None) -> None:
+def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     pin = pin_generator()
 
     # Generate random salt and nonce
@@ -167,16 +168,28 @@ def privateKeyAES(private_pem: bytes, user,filename: str = None) -> None:
     # Combine salt + nonce + ciphertext
     encrypted_blob = salt + nonce + ciphertext
     b64_encrypted = base64.b64encode(encrypted_blob).decode('utf-8')
-
-    data = {"Private_Key" : b64_encrypted , "Pin" : str(pin), "user" : user}
-
-    # Save to file if filename provided
     if not filename:
         filename = f"private_key_enc_{uuid.uuid4().hex}.json"
-    
-    return {filename:data}
+    data = {"Private_Key" : b64_encrypted , "Pin" : str(pin), "user" : user , "filename":filename}
 
+    # Save to file if filename provided
+    return data
 
+@app.route("/",methods=['GET'])
+def login():
+    return Response(LoginPage,mimetype='text/html')
+
+@app.route("/register",methods=['GET'])
+def registerhtml():
+    return Response(registerPage,mimetype='text/html')
+
+@app.route("/style.css",methods=['GET'])
+def style():
+    return Response(stylecss, mimetype='text/css')
+
+@app.route("/script.js",methods=['GET'])
+def js():
+    return Response(jsScript , mimetype='text/js')
 
 if __name__ == '__main__':
     app.run(debug=True)

@@ -17,16 +17,16 @@
     </nav>
 
     <main class="container">
-            <form>
-                <h1 id="title">Register</h1>
-                <div class="form-group">
-                    <label for="username" class="label-text">Username</label>
-                    <input id="username" type="text" class="input-field" placeholder="Enter your username">
-                </div>                    
-                <br>           
-                <button class="login-btn" onclick="register()">Register</button>
-                <a id="register" href="/">Back To Login</a>
-            </form>
+        <form id="registerForm"> 
+            <h1 id="title">Register</h1>
+            <div class="form-group">
+                <label for="username" class="label-text">Username</label>
+                <input id="username" type="text" class="input-field" placeholder="Enter your username">
+            </div>                    
+            <p id="output"></p>
+            <button type="submit" onclick="register()" class="login-btn">Register</button>
+            <a id="register" href="/">Back To Login</a>
+        </form>
     </main>
 
 </body>
