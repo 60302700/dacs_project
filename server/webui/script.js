@@ -15,4 +15,4 @@ async function register(){
         }
     )
 
-    console.log(await response)}
+    return await response }

@@ -1,1 +1,1 @@
-{"users": {"1": {"username": ["deviceId"]}, "2": {"test101": ["deviceId"]}}}
+{"users": {"1": {"username": "test101", "devices": ["deviceId"]}}}
