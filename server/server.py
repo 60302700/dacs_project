@@ -1,39 +1,35 @@
 from flask import Flask, request, jsonify, make_response,Response
 from tinydb import TinyDB, Query
-from cryptography.hazmat.primitives.asymmetric import rsa
+from cryptography.hazmat.primitives.asymmetric import rsa,padding
 from cryptography.hazmat.primitives.serialization import (
-    PublicFormat, PrivateFormat, Encoding, NoEncryption
+    PublicFormat, PrivateFormat, Encoding, NoEncryption, oad_pem_public_key
 )
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
-
 import uuid
 import os
 import base64
-import requests
 
 
 app = Flask(__name__)
 
 DB = TinyDB("Database.json")
-challenge_db = TinyDB("challenges.json")
 
 users = DB.table("users")
 login_sessions = DB.table("Sessions")
 public_key_db = DB.table("Public_Keys")
+challengedb = DB.table("Challenge")
 
-
-Challenge = Query()
 UserQ = Query()
 SessionQ = Query()
 PubKeyQ = Query()
 
 
-LoginPage = open("webui/login.html").read()
-registerPage = open("webui/register.html").read()
-stylecss = open("webui/style.css").read()
-jsScript = open("webui/script.js").read()
+LoginPage = open("static/login.html").read()
+registerPage = open("static/register.html").read()
+# stylecss = open("static/style.css").read()
+# jsScript = open("static/script.js").read()
 
 SERVER = "http://127.0.0.1:5000"
 
@@ -82,7 +78,7 @@ def login_request():
 
 @app.route('/login/response', methods=['POST'])
 def login_response():
-    data = request.jsonss
+    data = request.jsons
     session_id = data['session']
     response = data['response']
     if session_id not in login_sessions:
@@ -103,16 +99,34 @@ def rec_public_key(publicKey,user,Device_id):
         public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
         return True
     except Exception as e:
-        return {"status":"Err","msg":str(e)}
-
+        return jsonify({"status":"Err","msg":str(e)}), 400
 
 ##### PHASE 4 BY ERLAND #####
 
+###changes made by Abdullah###
+@app.route("/challenge", methods=["POST"])
+def challenge():
+    username = request.json["username"]
+    PublicKey = getPublicKey(username)
+    public_key = load_pem_public_key(PublicKey.encode())
+    encrypted = public_key.encrypt(
+        challenge_plain.encode(),
+        padding.OAEP(
+            mgf=padding.MGF1(algorithm=hashes.SHA256()),
+            algorithm=hashes.SHA256(),
+            label=None
+        )
+    )
+    plaintext = os.urandom(200).hex()
+
+    challengedb.insert()
+    return {"status":"Err","msg":"hello"}
+
 # For testing the server, run the file and open http://127.0.0.1:5000/test in the browser
+
 @app.route("/test", methods=["GET"])
 def test_route():
     return jsonify({"message": "Server is running!"})
-
 
 def pin_generator():
     return hex(int.from_bytes(os.urandom(32)))[2:]
@@ -143,7 +157,12 @@ def gen_public_private_key(user:str) -> tuple:
     except Exception as e:
         return {"status": "Err", "msg":f"{str(e)}"}
         
-
+def getPublicKey(username):
+    try:
+        data = public_key_db.get(PubKeyQ.record_id ==  username)
+        return data.get("public_key")
+    except Exception as e:
+        return f"{str(e)}"
 
 def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     pin = pin_generator()
@@ -170,26 +189,17 @@ def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     b64_encrypted = base64.b64encode(encrypted_blob).decode('utf-8')
     if not filename:
         filename = f"private_key_enc_{uuid.uuid4().hex}.json"
-    data = {"Private_Key" : b64_encrypted , "Pin" : str(pin), "user" : user , "filename":filename}
+    data = {"Private_Key" : b64_encrypted , "Pin" : str(pin), "username" : user , "filename":filename}
 
-    # Save to file if filename provided
     return data
 
 @app.route("/",methods=['GET'])
 def login():
-    return Response(LoginPage,mimetype='text/html')
+    return Response(LoginPage , mimetype='text/html')
 
 @app.route("/register",methods=['GET'])
 def registerhtml():
-    return Response(registerPage,mimetype='text/html')
-
-@app.route("/style.css",methods=['GET'])
-def style():
-    return Response(stylecss, mimetype='text/css')
-
-@app.route("/script.js",methods=['GET'])
-def js():
-    return Response(jsScript , mimetype='text/js')
+    return Response(registerPage , mimetype='text/html')
 
 if __name__ == '__main__':
     app.run(debug=True)
