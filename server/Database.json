@@ -13,5 +13,10 @@
             "public_key": "-----BEGIN PUBLIC KEY-----\nMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEArpHQ2wlC65krNYNOOLzP\nCHFddfW8gov8TNZezWObfPx9aVZF1dgNnbGrGg+l8IRG8w++jVQczNQUXLez/Nf2\n5CL0TmbBYn5QQfkUPjCTzARzosnUTByze9dibWjWyldPmBoImmGwzSKowKTkDl6h\njlefJSk41nVLC1K+MIa2AfQ10tn0KFk23sdfMMQt7qEJQzSdUu9bobtFil/Wb9mv\nvKvmXdRcdiFQiT26pQo7EzFWM+o0hgFSTxUbkSnFAzwDId6/zW8tQhq+34iN0Fs7\nQsiT2d5K3t8x/7Q+UgVLMPZ5GKgoPsCr0GqxeEwhFINRHWpmPR0nPXyY0h5OH11L\n1QIDAQAB\n-----END PUBLIC KEY-----\n",
             "device": "id_123234231"
         }
+    },
+    "Challenge": {
+        "1": {
+            "plaintext":"e972ca9ef926817256631e5f5968f53f21c53e04f166e6d3737d5e44ce16d7308327f44f162625fd89684a67a1290314c9cc7012ea1aa347ff572f5f04fd04ea419c355a088865c1cc856bfa48b52329","encrypted":"Mhr/8FK4lpZ4Zwwvuqwm5bkUjRI49fy/ur0t4DbyVpxvjWYwFw8vc85QVzdDqPunj6Um+1ZNxeLMerrD0PRmihaNF3i1xuFbgCm3SsKP0f8Q/5i4u5JlaNBLID+F281o41GMieBBXa6Y16YV/S3u4cwugES+Vy7SqwyJedjqzJDVwW6okLktN8NNaEHX/my8P90npkAt/41egJcNa08ISJqK2IKfVtpsk3aH/gq2rBOilZ4GdzoNXNcsW+4ysGQ0hfu+682CCx/KzIVkqKfDzarxhvj6oJzyi1vpCCE7kaTf4TvEJW41B8iPN7cUF/T5kmRVFSVOcek+zzrLH88TmQ=="
+        }
     }
 }

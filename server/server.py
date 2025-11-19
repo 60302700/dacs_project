@@ -2,8 +2,13 @@ from flask import Flask, request, jsonify, make_response,Response
 from tinydb import TinyDB, Query
 from cryptography.hazmat.primitives.asymmetric import rsa,padding
 from cryptography.hazmat.primitives.serialization import (
-    PublicFormat, PrivateFormat, Encoding, NoEncryption, oad_pem_public_key
+    PublicFormat,
+    PrivateFormat,
+    Encoding,
+    NoEncryption,
+    load_pem_public_key
 )
+
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
@@ -24,6 +29,7 @@ challengedb = DB.table("Challenge")
 UserQ = Query()
 SessionQ = Query()
 PubKeyQ = Query()
+ChallengeQ = Query()
 
 
 LoginPage = open("static/login.html").read()
@@ -106,22 +112,42 @@ def rec_public_key(publicKey,user,Device_id):
 ###changes made by Abdullah###
 @app.route("/challenge", methods=["POST"])
 def challenge():
-    username = request.json["username"]
-    PublicKey = getPublicKey(username)
-    public_key = load_pem_public_key(PublicKey.encode())
-    encrypted = public_key.encrypt(
-        challenge_plain.encode(),
-        padding.OAEP(
-            mgf=padding.MGF1(algorithm=hashes.SHA256()),
-            algorithm=hashes.SHA256(),
-            label=None
+    try:
+        print(request.json)
+        username = request.json["username"]
+        doesUserExsist = checkUser(username)
+        print(doesUserExsist)
+        if not doesUserExsist:
+            return {"status":"Err","msg":f"{str(e)}"} , 400
+        PublicKey = getPublicKey(username)
+        print(PublicKey)
+        plaintext = os.urandom(80).hex()
+        public_key = load_pem_public_key(PublicKey.encode())
+
+        encrypted = public_key.encrypt(
+            plaintext.encode(),
+            padding.OAEP(
+                mgf=padding.MGF1(algorithm=hashes.SHA256()),
+                algorithm=hashes.SHA256(),
+                label=None
+            )
         )
-    )
-    plaintext = os.urandom(200).hex()
+        print("ecrypted succesfull")
+        encrypted = base64.b64encode(encrypted).decode()
+        challengedb.insert({"plaintext" : plaintext, "encrypted" : encrypted})
+        return {"status":"ok","msg":"Server Challenge","challenge":encrypted}, 201
+    except Exception as e:
+        return {"status":"Err","msg":f"{str(e)} hmm "} , 400
 
-    challengedb.insert()
-    return {"status":"Err","msg":"hello"}
 
+@app.route("/challenge/verify",method=["POST"])
+def verify():
+    answer = request.json["answer"]
+    result = challengedb.get(ChallengeQ.plaintext == answer)
+    if result is None:
+        return False
+    else:
+        return True
 # For testing the server, run the file and open http://127.0.0.1:5000/test in the browser
 
 @app.route("/test", methods=["GET"])
@@ -164,6 +190,20 @@ def getPublicKey(username):
     except Exception as e:
         return f"{str(e)}"
 
+def checkUser(username):
+    try:
+        data = users.get(UserQ.username == username)
+        if data is None:
+            return False
+        else:
+            return True
+    except Exception as e:
+        return str(e)
+
+
+def checkChallenge(text):
+    try:
+        challengedb()
 def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     pin = pin_generator()
 
