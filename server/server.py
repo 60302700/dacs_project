@@ -139,7 +139,7 @@ def challenge():
         return {"status":"Err","msg":f"{str(e)} hmm "} , 400
 
 
-@app.route("/challenge/verify",method=["POST"])
+@app.route("/challenge/verify",methods=["POST"])
 def verify():
     try:
         answer = request.json["answer"]

@@ -17,7 +17,7 @@
     </nav>
 
     <main class="container">
-            <form  action="/login" enctype="multipart/form-data" method="POST">
+                <form>
                 <h1 id="title">Login</h1>
                 <div class="form-group">
                     <label for="json" class="upload-btn">
@@ -27,7 +27,7 @@
                     <input id="json" name="file" type="file">
                 </div>     
                 <br>           
-                <button class="login-btn">Login</button>
+                <button class="login-btn" type="button" onclick="challenge()">Login</button>
                 <a id="register" href="/register">Register</a>
             </form>
     </main>

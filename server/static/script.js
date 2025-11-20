@@ -50,3 +50,22 @@ async function register(){
     }}
 
      }
+
+
+async function priKeyBytes(key){
+    key.replace()
+}
+async function challenge(){
+    let file = document.getElementById("json")
+    info = file.files[0]
+    info = await JSON.parse(await info.text())
+    username = info.user
+    priKey = info.Private_Key
+    Pin = info.Pin
+    console.log(username)
+    x = await fetch("http://127.0.0.1:5000/challenge",
+        {method:"POST",headers:{'Content-Type':'application/json'},
+        body:JSON.stringify({"username":username})})
+    console.log(await x.json())
+
+}
