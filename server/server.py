@@ -147,7 +147,7 @@ def verify():
     if result is None:
         return False
     else:
-        return True
+        return True #needs to add sessions here add session uuid in here in cookies and also todo add middleware to check for 
 # For testing the server, run the file and open http://127.0.0.1:5000/test in the browser
 
 @app.route("/test", methods=["GET"])
@@ -204,6 +204,8 @@ def checkUser(username):
 def checkChallenge(text):
     try:
         challengedb()
+    except:
+        pass
 def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     pin = pin_generator()
 
