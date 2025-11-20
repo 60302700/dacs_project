@@ -295,3 +295,130 @@ form {
     color: #d3d3d3;
     transform: rotate(90deg);
 }
+
+.username{
+    padding: 15px;
+    background: var(--bg-secondary);
+    border-radius: 10px;
+    font-size: 15px;
+    font-weight: bolder;
+    align-self: center;
+}
+
+.user-btn {
+    padding: 14px 20px;
+    background: var(--navbar-bg);
+    color: var(--bg);
+    border: 1px solid var(--border-color);
+    border-radius: 15px;
+    font-weight: 600;
+    transition: 0.2s ease;
+    text-align: center;
+}
+
+.user-btn:hover {
+    background: var(--border-color);
+}
+
+.userdashboard{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap:30px;
+}
+
+.cyber-dashboard {
+    padding: 40px;
+}
+
+/* HERO PANEL */
+.hero-panel {
+    padding: 30px;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    border-radius: 16px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 0 25px rgba(0,0,0,0.15);
+}
+
+.hero-title {
+    margin: 0;
+    font-size: 34px;
+    font-weight: 900;
+}
+
+.hero-sub {
+    margin-top: 10px;
+    margin-bottom: 30px;
+    font-size: 17px;
+}
+
+/* STATS */
+.hero-stats {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+}
+
+.stat {
+    text-align: center;
+}
+
+.stat .label {
+    display: block;
+    font-size: 14px;
+    opacity: 0.6;
+}
+
+.stat .value {
+    font-size: 20px;
+    font-weight: 700;
+}
+
+/* MODULE GRID */
+.module-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(310px, 1fr));
+    gap: 30px;
+}
+
+/* CARDS */
+.module-card {
+    background: var(--bg-secondary);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 14px;
+    transition: 0.3s ease;
+    box-shadow: 0 0 15px rgba(0,0,0,0.10);
+}
+
+.module-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 0 30px rgba(0,0,0,0.20);
+}
+
+/* CARD HEADER */
+.module-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+}
+
+.module-header h2 {
+    margin: 0;
+    font-size: 22px;
+}
+
+/* AUTH LOG */
+.auth-log {
+    list-style: none;
+    padding: 0;
+}
+
+.auth-log li {
+    margin: 8px 0;
+    display: flex;
+    gap: 8px;
+}

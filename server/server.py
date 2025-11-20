@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response , Response, url_for , redirect
+from flask import Flask, request, jsonify, make_response , Response, url_for , redirect, render_template
 from tinydb import TinyDB, Query
 from cryptography.hazmat.primitives.asymmetric import rsa,padding
 from cryptography.hazmat.primitives.serialization import (
@@ -149,27 +149,18 @@ def challenge():
 @app.route("/challenge/verify",methods=["POST"])
 def verify():
     try:
-        print("verfiying")
         answer = request.form.get("answer")
         username = request.form.get("username")
         device_id = request.form.get("deviceid")
         result = checkChallenge(answer)
         devid = checkDevID(username,device_id)
-        print(devid)
-        print(result)
-        if not result and not devid:
-            return "False"
-        else:
+        if result and devid:
             sessionid = genSession(username)
             print(sessionid)
-            resp = make_response(redirect(url_for("test_route")))
-            resp.set_cookie(
-        "session_token",
-        sessionid,
-        secure=True,
-        samesite="Strict"
-    )
-        return resp
+            resp = make_response(redirect(url_for("userdashboard")))
+            resp.set_cookie("session_token",sessionid,secure=True,samesite="Strict")
+            return resp
+        else:return "False"
     except Exception as e:
         return str(e)
     
@@ -178,6 +169,13 @@ def verify():
 @app.route("/test", methods=["GET"])
 def test_route():
     return jsonify({"message": "Server is running!"})
+
+@app.route("/dashboard",methods=['GET'])
+def userdashboard():
+    token = request.cookies.get("session_token")
+    user = getUserFromSession(token)
+    print(user)
+    return render_template('dashboard.html', Username=user)
 
 def pin_generator():
     return hex(int.from_bytes(os.urandom(32)))[2:]
@@ -280,6 +278,8 @@ def getUserFromSession(session):
         # login_sessions = DB.table("Sessions")
         # SessionQ = Query()
         session_data = login_sessions.get(SessionQ.session_id == session)
+        if session_data is None:
+            return False
         return session_data.get('username')
     except:
         pass
@@ -290,6 +290,17 @@ def checkDevID(username,devid):
     if devid in devices:
         return True
     return False
+
+def getUserFromSession(session):
+    try:
+        sess = login_sessions.get(SessionQ.session_id == session)
+        print(sess)
+        if sess is None:
+            return False
+        return sess.get('username')
+    except Exception as e:
+        print(str(e))
+        return False
 
 @app.route("/",methods=['GET'])
 def login():

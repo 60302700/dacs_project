@@ -12,13 +12,16 @@ async function sha256Hash(message) {
   
     return hexHash;
   }
-  function getGPUName() {
+  
+  async function devIDreq() {
     const canvas = document.createElement('canvas');
+    let n
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) return 'Unknown GPU';
     const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-    if (debugInfo) return gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL);
-    return 'Unknown GPU';
+    if (debugInfo) {
+        return await sha256Hash(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL))
+    }
 }
 
 function devhash() {
@@ -32,21 +35,6 @@ function devhash() {
         msg.style.display = "none";  // hide
     }
 }
-
-async function sha256Hash(message) {
-    // Encode the string into a Uint8Array
-    const textEncoder = new TextEncoder();
-    const data = textEncoder.encode(message);
-  
-    // Hash the data
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  
-    // Convert the ArrayBuffer to a hexadecimal string
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  
-    return hexHash;
-  }
 
 async function deviceID() {
     const canvas = document.createElement('canvas');
@@ -227,7 +215,7 @@ async function challenge(){
     hiddendevid = document.getElementById('hiddendevid')
     hiddeninputanswer.value = new TextDecoder().decode(decrypted)    
     hiddenusername.value = username
-    hiddendevid = await getID()
+    hiddendevid.value = await devIDreq()
     form = document.getElementById('form')
     form.submit()
 }
