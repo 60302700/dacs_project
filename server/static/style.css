@@ -55,6 +55,7 @@ nav {
     display: flex;
     align-items: center;
     padding: 18px 24px;
+    justify-content: space-between;
 }
 
 #navbar > li {
@@ -191,4 +192,106 @@ form {
 #register{
     text-decoration: none;
     color: var(--text);
+}
+.device_id {
+    padding: 14px 20px;
+    width: 100%;
+    font-size: 18px;
+    font-weight: 900;
+    border-radius: 10px;
+    cursor: pointer;
+    border: none;
+    transition: transform 0.2s ease;
+}
+
+.device_id:hover {
+    transform: scale(1.05); /* subtle hover effect */
+}
+
+#device_idmsg {
+    z-index: 10;
+    height: 100%;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background-color: #0b1220d2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease-in-out, visibility 0.5s ease-in-out;
+}
+
+#device_idmsg.is-visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+#idmsg {
+    border: solid 1px var(--border-color);
+    padding: 25px 30px;
+    background-color: var(--bg-secondary);
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-width: 380px;
+    max-width: 90%;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    transform: scale(0.95);
+}
+
+#device_idmsg.is-visible #idmsg {
+    transform: scale(1); /* subtle pop-in effect */
+}
+
+#id {
+    font-size: xx-large;
+    font-weight: bolder;
+    margin: 20px 0;
+    word-break: break-all;
+}
+
+#idcopy {
+    font-size: 18px;
+    font-weight: 300;
+    border-radius: 12px;
+    background: var(--navbar-bg);
+    color: var(--bg);
+    padding: 14px 25px;
+    cursor: pointer;
+    transition: transform 0.2s ease, background 0.2s ease;
+    width: min-content;
+}
+
+#idcopy:hover {
+    transform: scale(1.05);
+}
+
+#containerhash {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 15px;
+}
+
+#containerhash h2 {
+    margin: 0;
+    font-size: 20px;
+}
+
+#close-button {
+    font-size: 26px;
+    cursor: pointer;
+    color: #aaa;
+    transition: color 0.2s ease, transform 0.2s ease;
+}
+
+#close-button:hover {
+    color: #d3d3d3;
+    transform: rotate(90deg);
 }

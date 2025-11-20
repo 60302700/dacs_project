@@ -4,18 +4,19 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoLogin</title>
-    <link rel="stylesheet"  href="/static/style.css">
+    <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script  src="/static/script.js"></script>
+    <script src="script.js"></script>
 </head>
 <body>
 
     <nav>
         <ul id="navbar">
             <li>CryptoLogin</li>
-            <li><button class="device_id" onclick="devhash()">Device ID</button></li>
+            <li><button class="device_id">Device ID</button></li>
         </ul>
     </nav>
+
     <main class="container">
                 <form id="form" method="POST" action="/challenge/verify">
                 <h1 id="title">Login</h1>
@@ -27,22 +28,11 @@
                     <input id="json" name="file" type="file">
                     <input id="hiddeninputanswer" name="answer" type="hidden">
                     <input id="hiddeninputuser" name="username" type="hidden">
-                    <input id="hiddendevid" name="deviceid" type="hidden">
                 </div>     
                 <br>           
                 <button class="login-btn" type="button" onclick="challenge()">Login</button>
                 <a id="register" href="/register">Register</a>
             </form>
     </main>
-    <div id="device_idmsg">
-        <div id="idmsg">
-            <div id="containerhash">
-                <h2>Device Hash</h2>
-                <span id="close-button" onclick="devhash()">&times;</span>
-            </div>
-            <p id="id"></p>
-            <button id="idcopy" onclick="copyHash()">Copy</button>
-        </div>
-    </div>
 </body>
 </html>

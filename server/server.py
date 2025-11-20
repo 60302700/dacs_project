@@ -1,4 +1,4 @@
-from flask import Flask, request, jsonify, make_response,Response
+from flask import Flask, request, jsonify, make_response , Response, url_for , redirect
 from tinydb import TinyDB, Query
 from cryptography.hazmat.primitives.asymmetric import rsa,padding
 from cryptography.hazmat.primitives.serialization import (
@@ -38,6 +38,17 @@ registerPage = open("static/register.html").read()
 # jsScript = open("static/script.js").read()
 
 SERVER = "http://127.0.0.1:5000"
+
+EXEMPT_ROUTES = ['login', 'register', 'challenge', 'verify']
+
+@app.before_request
+def checkSession():
+    endpoint = request.endpoint
+    if endpoint in EXEMPT_ROUTES or endpoint is None or request.path.startswith("/static/"):return
+    session_token = request.cookies.get("session_token")
+    session = GetSession(session_token)
+    if not session:
+        return redirect(url_for('login'))
 
 @app.route('/register', methods=['POST'])
 def register():
@@ -112,15 +123,11 @@ def rec_public_key(publicKey,user,Device_id):
 @app.route("/challenge", methods=["POST"])
 def challenge():
     try:
-        print(request.json)
         username = request.json["username"]
         doesUserExsist = checkUser(username)
-        print("username")
-        print(doesUserExsist)
         if not doesUserExsist:
             return {"status":"Err","msg":f"{str(e)}"} , 400
         PublicKey = getPublicKey(username)
-        print(PublicKey)
         plaintext = os.urandom(80).hex()
         public_key = load_pem_public_key(PublicKey.encode())
 
@@ -132,7 +139,6 @@ def challenge():
                 label=None
             )
         )
-        print("ecrypted succesfull")
         encrypted = base64.b64encode(encrypted).decode()
         challengedb.insert({"plaintext" : plaintext, "encrypted" : encrypted})
         return {"status":"ok","msg":"Server Challenge","challenge":encrypted}, 201
@@ -143,13 +149,27 @@ def challenge():
 @app.route("/challenge/verify",methods=["POST"])
 def verify():
     try:
-        answer = request.json["answer"]
-        username = request.json["username"]
+        print("verfiying")
+        answer = request.form.get("answer")
+        username = request.form.get("username")
+        device_id = request.form.get("deviceid")
         result = checkChallenge(answer)
-        if result is None:
-            return False
+        devid = checkDevID(username,device_id)
+        print(devid)
+        print(result)
+        if not result and not devid:
+            return "False"
         else:
-            return genSession(username)
+            sessionid = genSession(username)
+            print(sessionid)
+            resp = make_response(redirect(url_for("test_route")))
+            resp.set_cookie(
+        "session_token",
+        sessionid,
+        secure=True,
+        samesite="Strict"
+    )
+        return resp
     except Exception as e:
         return str(e)
     
@@ -204,6 +224,7 @@ def checkUser(username):
 
 def checkChallenge(text):
     information = challengedb.get(ChallengeQ.plaintext == text)
+    print(information)
     if information is None:
         return False
     return True
@@ -243,6 +264,33 @@ def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
 
     return data
 
+
+def GetSession(session):
+    try:
+        sess = login_sessions.get(SessionQ.session_id == session)
+        if sess is None:
+            return False
+        return True
+    except Exception as e:
+        print(str(e))
+        return False
+
+def getUserFromSession(session):
+    try:
+        # login_sessions = DB.table("Sessions")
+        # SessionQ = Query()
+        session_data = login_sessions.get(SessionQ.session_id == session)
+        return session_data.get('username')
+    except:
+        pass
+
+def checkDevID(username,devid):
+    userdata = users.get(UserQ.username == username)
+    devices = userdata.get('devices')
+    if devid in devices:
+        return True
+    return False
+
 @app.route("/",methods=['GET'])
 def login():
     return Response(LoginPage , mimetype='text/html')
@@ -252,4 +300,5 @@ def registerhtml():
     return Response(registerPage , mimetype='text/html')
 
 if __name__ == '__main__':
-    app.run(debug=True)
+    app.run(host='0.0.0.0', port=5000,debug=True)
+    #print(getUserFromSession('a2a9db1c-6884-4f6c-9ef0-b4f29e21bb53'))
