@@ -45,7 +45,6 @@ def register():
         data = request.json
         username = data['username']
         device_id = data['device_id']
-
         User = Query()
         existing_user = users.get(User.username == username)
         if existing_user is not None:
@@ -142,12 +141,17 @@ def challenge():
 
 @app.route("/challenge/verify",method=["POST"])
 def verify():
-    answer = request.json["answer"]
-    result = challengedb.get(ChallengeQ.plaintext == answer)
-    if result is None:
-        return False
-    else:
-        return True #needs to add sessions here add session uuid in here in cookies and also todo add middleware to check for 
+    try:
+        answer = request.json["answer"]
+        username = request.json["username"]
+        result = checkChallenge(answer)
+        if result is None:
+            return False
+        else:
+            return genSession(username)
+    except Exception as e:
+        return str(e)
+    
 # For testing the server, run the file and open http://127.0.0.1:5000/test in the browser
 
 @app.route("/test", methods=["GET"])
@@ -192,20 +196,23 @@ def getPublicKey(username):
 
 def checkUser(username):
     try:
-        data = users.get(UserQ.username == username)
-        if data is None:
-            return False
-        else:
-            return True
+        return users.get(UserQ.username == username)
     except Exception as e:
         return str(e)
 
 
 def checkChallenge(text):
-    try:
-        challengedb()
-    except:
-        pass
+    information = challengedb.get(ChallengeQ.plaintext == text)
+    if information is None:
+        return False
+    return True
+
+def genSession(username):
+    sessionid = uuid.uuid4().__str__()
+    data = {"username":username,"session_id":sessionid}
+    login_sessions.insert(data)
+    return sessionid
+
 def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     pin = pin_generator()
 
