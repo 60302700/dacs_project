@@ -115,6 +115,7 @@ def challenge():
         print(request.json)
         username = request.json["username"]
         doesUserExsist = checkUser(username)
+        print("username")
         print(doesUserExsist)
         if not doesUserExsist:
             return {"status":"Err","msg":f"{str(e)}"} , 400
