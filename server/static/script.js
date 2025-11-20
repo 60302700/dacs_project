@@ -59,7 +59,7 @@ async function challenge(){
     let file = document.getElementById("json")
     info = file.files[0]
     info = await JSON.parse(await info.text())
-    username = info.user
+    username = info.username
     priKey = info.Private_Key
     Pin = info.Pin
     console.log(username)
