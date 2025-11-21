@@ -14,8 +14,9 @@ from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
 from cryptography.hazmat.primitives import hashes
 import uuid
 import os
+import time
 import base64
-
+import threading
 
 app = Flask(__name__)
 
@@ -102,7 +103,7 @@ def challenge():
         username = request.json["username"]
         doesUserExsist = checkUser(username)
         if not doesUserExsist:
-            return {"status":"Err","msg":f"{str(e)}"} , 400
+            return {"status":"Err","msg":"User Not Found"} , 400
         PublicKey = getPublicKey(username)
         plaintext = os.urandom(80).hex()
         public_key = load_pem_public_key(PublicKey.encode())
@@ -119,7 +120,7 @@ def challenge():
         challengedb.insert({"plaintext" : plaintext, "encrypted" : encrypted})
         return {"status":"ok","msg":"Server Challenge","challenge":encrypted}, 201
     except Exception as e:
-        return {"status":"Err","msg":f"{str(e)} hmm "} , 400
+        return {"status":"Err","msg":f"{str(e)}"} , 400
 
 
 @app.route("/challenge/verify",methods=["POST"])
@@ -131,10 +132,10 @@ def verify():
         result = checkChallenge(answer)
         devid = checkDevID(username,device_id)
         if result and devid:
-            sessionid = genSession(username)
+            sessionid,expiretime = genSession(username)
             print(sessionid)
             resp = make_response(redirect(url_for("userdashboard")))
-            resp.set_cookie("session_token",sessionid,secure=True,samesite="Strict")
+            resp.set_cookie("session_token",sessionid,samesite="Strict",expires=expiretime)
             return resp
         else:return "False"
     except Exception as e:
@@ -152,6 +153,20 @@ def userdashboard():
     user = getUserFromSession(token)
     print(user)
     return render_template('dashboard.html', Username=user)
+
+@app.route("/logout",methods=['POST'])
+def logout():
+    username = request.json["username"]
+    session_id = request.cookies.get("session_token")
+    doesUserExsist = checkUser(username)
+    SessionExsist = GetSession(session_id)
+    resp = make_response(redirect(url_for("login")))
+    if doesUserExsist and SessionExsist:
+        RemoveSession(session_id)
+        return resp
+    else:
+        return resp
+
 
 def pin_generator():
     return hex(int.from_bytes(os.urandom(32)))[2:]
@@ -198,16 +213,26 @@ def checkUser(username):
 
 def checkChallenge(text):
     information = challengedb.get(ChallengeQ.plaintext == text)
-    print(information)
+    challengedb.remove(ChallengeQ.plaintext == text)
     if information is None:
         return False
     return True
 
 def genSession(username):
     sessionid = uuid.uuid4().__str__()
-    data = {"username":username,"session_id":sessionid}
+    expirytime = time.time() +  3600
+    data = {"username":username,"session_id":sessionid , "expirytime":expirytime}
     login_sessions.insert(data)
-    return sessionid
+    return sessionid,expirytime
+
+def cleanup_expired():
+    now = time.time()
+    db.remove(Ch.expires_at <= now)
+
+def expiry_monitor():
+    while True:
+        cleanup_expired()
+        time.sleep(1)
 
 def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     pin = pin_generator()
@@ -249,6 +274,9 @@ def GetSession(session):
         print(str(e))
         return False
 
+def RemoveSession(session):
+    login_sessions.remove(SessionQ.session_id == session)
+
 def getUserFromSession(session):
     try:
         # login_sessions = DB.table("Sessions")
@@ -288,4 +316,5 @@ def registerhtml():
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0', port=5000,debug=True)
+    threading.Thread(target=expiry_monitor, daemon=True).start()
     #print(getUserFromSession('a2a9db1c-6884-4f6c-9ef0-b4f29e21bb53'))

@@ -185,6 +185,7 @@ async function challenge(){
     let file = document.getElementById("json")
     info = file.files[0]
     info = await JSON.parse(await info.text())
+    loginoutput = document.getElementById('loginoutput')
     username = info.user
     priKey = info.Private_Key
     Pin = info.Pin
@@ -194,7 +195,12 @@ async function challenge(){
          {method:"POST",headers:{'Content-Type':'application/json'},
         body:JSON.stringify({"username":username})})
     data = await x.json()
-    
+    console.log(data)
+    let status = data.status
+    if (status == "Err"){
+        loginoutput.innerHTML = data.msg
+        return
+    }
     // gets the challenge and converts it into buffer
     let challenge = data.challenge
     challenge = base64ToArrayBuffer(challenge)
@@ -223,4 +229,11 @@ async function challenge(){
 function copyHash() {
     const text = document.getElementById("id").textContent;
     navigator.clipboard.writeText(text);
+}
+
+async function logout(){
+    username = document.getElementsByClassName('user-btn')[0].textContent
+    x = await fetch("/logout",
+        {method:"POST",headers:{'Content-Type':'application/json'},
+       body:JSON.stringify({"username":username})})
 }
