@@ -17,10 +17,23 @@ import os
 import time
 import base64
 import threading
+import logging
+from datetime import datetime
+
+# File name = current date, e.g., 2025-11-21.log
+log_filename = datetime.now().strftime("%Y-%m-%d") + ".log"
+
+logging.basicConfig(
+    filename=log_filename,
+    level=logging.INFO,             # or DEBUG if you want more details
+    format="%(asctime)s - %(levelname)s - %(message)s"
+)
 
 app = Flask(__name__)
 
 DB = TinyDB("Database.json")
+
+db_lock = threading.Lock()
 
 users = DB.table("users")
 login_sessions = DB.table("Sessions")
@@ -40,11 +53,12 @@ registerPage = open("static/register.html").read()
 
 SERVER = "http://127.0.0.1:5000"
 
-EXEMPT_ROUTES = ['login', 'register', 'challenge', 'verify']
+EXEMPT_ROUTES = ['login', 'register', 'challenge', 'verify','registerhtml']
 
 @app.before_request
 def checkSession():
     endpoint = request.endpoint
+    # print(endpoint)
     if endpoint in EXEMPT_ROUTES or endpoint is None or request.path.startswith("/static/"):return
     session_token = request.cookies.get("session_token")
     session = GetSession(session_token)
@@ -57,9 +71,10 @@ def register():
         data = request.json
         username = data['username']
         device_id = data['device_id']
-        User = Query()
-        existing_user = users.get(User.username == username)
+        with db_lock:
+            existing_user = users.get(UserQ.username == username)
         if existing_user is not None:
+            logging.info(f"""{{"status": "Err", "msg":"User Already Exsists/Registered"}} 201""")
             return jsonify({"status": "Err", "msg":"User Already Exsists/Registered"}), 201
     
         if existing_user is None:
@@ -67,31 +82,29 @@ def register():
                 "username": username,
                 "devices": [device_id]
             }
-            users.insert(new_doc)
-        
-        """else:
-            devices = existing_user.get("devices", [])
-            if device_id not in devices:
-                devices.append(device_id)
-                users.update({"devices": devices}, User.username == username)"""
+            with db_lock:
+                users.insert(new_doc)
         
         data =  gen_public_private_key(username)
+        logging.info(f"""{{"status": "ok", "msg":"Successfull Registrered","file":data}} , 201""")
         return jsonify({"status": "ok", "msg":"Successfull Registrered","file":data}), 201
     except Exception as e:
         print(f"{str(e)}")
 
 
 def rec_public_key(publicKey,user,Device_id):
-    #rec_public_key(public_pem.decode("utf-8"),user,"id_123234231")
     try:
         document = {
             'record_id':user,
             'public_key':publicKey,
             "device":Device_id,
         }
-        public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
+        with db_lock:
+            public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
+            logging.info(f"Added PublicKey for user {user}")
         return True
     except Exception as e:
+        logging.info(f"""{"status":"Err","msg":str(e)}, 400""")
         return jsonify({"status":"Err","msg":str(e)}), 400
 
 ##### PHASE 4 BY ERLAND #####
@@ -117,9 +130,12 @@ def challenge():
             )
         )
         encrypted = base64.b64encode(encrypted).decode()
-        challengedb.insert({"plaintext" : plaintext, "encrypted" : encrypted})
+        with db_lock:
+            challengedb.insert({"plaintext" : plaintext, "encrypted" : encrypted})
+        logging.info(f"Server Provided A Challenge for User {username}")
         return {"status":"ok","msg":"Server Challenge","challenge":encrypted}, 201
     except Exception as e:
+        logging.error(f"Err Occured While Dealing With {username} , Err:{str(e)}")
         return {"status":"Err","msg":f"{str(e)}"} , 400
 
 
@@ -131,27 +147,34 @@ def verify():
         device_id = request.form.get("deviceid")
         result = checkChallenge(answer)
         devid = checkDevID(username,device_id)
+        # print(result)
+        # print(devid)
+        # print(username)
         if result and devid:
             sessionid,expiretime = genSession(username)
-            print(sessionid)
+            # print(sessionid)
             resp = make_response(redirect(url_for("userdashboard")))
             resp.set_cookie("session_token",sessionid,samesite="Strict",expires=expiretime)
+            logging.info(f"Successfull Completed The Challenge for the user {username}")
             return resp
-        else:return "False"
+        else:
+            logging.error(f"Invalid Credentials For {username}")
+            return "Invalid Credentials"
     except Exception as e:
+        logging.error(f"Error Occured For {username} , Err: {str(e)}")
         return str(e)
     
 # For testing the server, run the file and open http://127.0.0.1:5000/test in the browser
 
-@app.route("/test", methods=["GET"])
+"""@app.route("/test", methods=["GET"])
 def test_route():
-    return jsonify({"message": "Server is running!"})
+    return jsonify({"message": "Server is running!"})"""
 
 @app.route("/dashboard",methods=['GET'])
 def userdashboard():
     token = request.cookies.get("session_token")
     user = getUserFromSession(token)
-    print(user)
+    logging.info(f"User {user} Logged In SucessFully")
     return render_template('dashboard.html', Username=user)
 
 @app.route("/logout",methods=['POST'])
@@ -161,10 +184,13 @@ def logout():
     doesUserExsist = checkUser(username)
     SessionExsist = GetSession(session_id)
     resp = make_response(redirect(url_for("login")))
+    resp.delete_cookie('session_token')
     if doesUserExsist and SessionExsist:
         RemoveSession(session_id)
+        logging.info(f"User {username} Logged Out SucessFully")
         return resp
     else:
+        logging.info(f"User Already logged out")
         return resp
 
 
@@ -191,48 +217,59 @@ def gen_public_private_key(user:str) -> tuple:
         data = privateKeyAES(private_pem,user,name)
         
         rec_public_key(public_pem.decode("utf-8"),user,"id_123234231")
-
+        logging.info(f"Sucessfull Generated Private And Public Key")
         return data
 
     except Exception as e:
+        logging.error(f"Failed In Generated Of Private And Public Key , Err:{str(e)}")
         return {"status": "Err", "msg":f"{str(e)}"}
         
 def getPublicKey(username):
     try:
-        data = public_key_db.get(PubKeyQ.record_id ==  username)
+        with db_lock:
+            data = public_key_db.get(PubKeyQ.record_id ==  username)
         return data.get("public_key")
     except Exception as e:
         return f"{str(e)}"
 
 def checkUser(username):
     try:
-        return users.get(UserQ.username == username)
+        with db_lock:
+            return users.get(UserQ.username == username)
     except Exception as e:
         return str(e)
 
 
 def checkChallenge(text):
-    information = challengedb.get(ChallengeQ.plaintext == text)
-    challengedb.remove(ChallengeQ.plaintext == text)
+    with db_lock:
+        information = challengedb.get(ChallengeQ.plaintext == text)
+        challengedb.remove(ChallengeQ.plaintext == text)
     if information is None:
         return False
     return True
 
 def genSession(username):
     sessionid = uuid.uuid4().__str__()
-    expirytime = time.time() +  3600
-    data = {"username":username,"session_id":sessionid , "expirytime":expirytime}
-    login_sessions.insert(data)
+    expirytime = time.time() + 3600
+    with db_lock:
+        login_sessions.insert({"username": username,"session_id": sessionid,"expirytime": expirytime})
     return sessionid,expirytime
 
 def cleanup_expired():
     now = time.time()
-    db.remove(Ch.expires_at <= now)
+    login_sessions.remove(SessionQ.expirytime <= now)
 
 def expiry_monitor():
     while True:
-        cleanup_expired()
-        time.sleep(1)
+        with db_lock:
+            all_sessions = login_sessions.all()
+            if all_sessions:
+                nextExpiryTime = min([i.get("expirytime") for i in all_sessions])
+                cleanup_expired()
+                timesleep = max(0,nextExpiryTime-time.time())
+            else:
+                timesleep = 5
+        time.sleep(timesleep)
 
 def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     pin = pin_generator()
@@ -266,7 +303,8 @@ def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
 
 def GetSession(session):
     try:
-        sess = login_sessions.get(SessionQ.session_id == session)
+        with db_lock:
+            sess = login_sessions.get(SessionQ.session_id == session)
         if sess is None:
             return False
         return True
@@ -275,21 +313,12 @@ def GetSession(session):
         return False
 
 def RemoveSession(session):
-    login_sessions.remove(SessionQ.session_id == session)
-
-def getUserFromSession(session):
-    try:
-        # login_sessions = DB.table("Sessions")
-        # SessionQ = Query()
-        session_data = login_sessions.get(SessionQ.session_id == session)
-        if session_data is None:
-            return False
-        return session_data.get('username')
-    except:
-        pass
+    with db_lock:
+        login_sessions.remove(SessionQ.session_id == session)
 
 def checkDevID(username,devid):
-    userdata = users.get(UserQ.username == username)
+    with db_lock:
+        userdata = users.get(UserQ.username == username)
     devices = userdata.get('devices')
     if devid in devices:
         return True
@@ -297,13 +326,12 @@ def checkDevID(username,devid):
 
 def getUserFromSession(session):
     try:
-        sess = login_sessions.get(SessionQ.session_id == session)
-        print(sess)
+        with db_lock:
+            sess = login_sessions.get(SessionQ.session_id == session)
         if sess is None:
             return False
         return sess.get('username')
     except Exception as e:
-        print(str(e))
         return False
 
 @app.route("/",methods=['GET'])
@@ -315,6 +343,6 @@ def registerhtml():
     return Response(registerPage , mimetype='text/html')
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0', port=5000,debug=True)
     threading.Thread(target=expiry_monitor, daemon=True).start()
+    app.run(host='0.0.0.0', port=5000,debug=True,use_reloader=False)
     #print(getUserFromSession('a2a9db1c-6884-4f6c-9ef0-b4f29e21bb53'))

@@ -69,10 +69,10 @@ async function register(){
     event.preventDefault()
     let uname = document.getElementById('username').value
     let msg = document.getElementById('output')
-
+    console.log("working?")
     const dataPayload = {
         username: uname,
-        device_id: await getID()
+        device_id: await devIDreq()
     }
 
     if (uname.length == 0){
@@ -186,7 +186,7 @@ async function challenge(){
     info = file.files[0]
     info = await JSON.parse(await info.text())
     loginoutput = document.getElementById('loginoutput')
-    username = info.user
+    username = info.username
     priKey = info.Private_Key
     Pin = info.Pin
     
