@@ -39,12 +39,13 @@ users = DB.table("users")
 login_sessions = DB.table("Sessions")
 public_key_db = DB.table("Public_Keys")
 challengedb = DB.table("Challenge")
+RegisterToken = DB.table("Token")
 
 UserQ = Query()
 SessionQ = Query()
 PubKeyQ = Query()
 ChallengeQ = Query()
-
+TokenQ = Query()
 
 LoginPage = open("static/login.html").read()
 registerPage = open("static/register.html").read()
@@ -115,6 +116,8 @@ def challenge():
     try:
         username = request.json["username"]
         doesUserExsist = checkUser(username)
+        print(username)
+        print(doesUserExsist)
         if not doesUserExsist:
             return {"status":"Err","msg":"User Not Found"} , 400
         PublicKey = getPublicKey(username)
@@ -135,16 +138,24 @@ def challenge():
         logging.info(f"Server Provided A Challenge for User {username}")
         return {"status":"ok","msg":"Server Challenge","challenge":encrypted}, 201
     except Exception as e:
-        logging.error(f"Err Occured While Dealing With {username} , Err:{str(e)}")
+        logging.error(f"Err Occured , Err:{str(e)}")
         return {"status":"Err","msg":f"{str(e)}"} , 400
 
 
 @app.route("/challenge/verify",methods=["POST"])
 def verify():
     try:
-        answer = request.form.get("answer")
-        username = request.form.get("username")
-        device_id = request.form.get("deviceid")
+        username = None
+        answer = None
+        device_id = None
+        if not request.is_json:
+            answer = request.form.get("answer")
+            username = request.form.get("username")
+            device_id = request.form.get("deviceid")
+        elif request.is_json:
+            answer = request.json["answer"]
+            username = request.json["username"]
+            device_id = request.json["deviceid"]
         result = checkChallenge(answer)
         devid = checkDevID(username,device_id)
         # print(result)
@@ -154,15 +165,15 @@ def verify():
             sessionid,expiretime = genSession(username)
             # print(sessionid)
             resp = make_response(redirect(url_for("userdashboard")))
-            resp.set_cookie("session_token",sessionid,samesite="Strict",expires=expiretime)
+            resp.set_cookie("session_token",sessionid,samesite="Lax",expires=expiretime)
             logging.info(f"Successfull Completed The Challenge for the user {username}")
             return resp
         else:
             logging.error(f"Invalid Credentials For {username}")
-            return "Invalid Credentials"
+            return jsonify({"status":"Err","msg":"Invalid Credentials"}), 404
     except Exception as e:
         logging.error(f"Error Occured For {username} , Err: {str(e)}")
-        return str(e)
+        return jsonify({"status":"Err","msg":str(e)}), 400
     
 # For testing the server, run the file and open http://127.0.0.1:5000/test in the browser
 
@@ -192,6 +203,15 @@ def logout():
     else:
         logging.info(f"User Already logged out")
         return resp
+
+@app.route("/tokengen",methods=["GET"])
+def getToken():
+    username = request.json["username"]
+    DoesUserExsist = checkUser(username)
+    if DoesUserExsist:
+        return jsonify({"status":"Err","msg":"User Not Found"}),400
+    token = genRegisterToken(username)
+    return jsonify({"status":"ok","msg":token}),200
 
 
 def pin_generator():
@@ -248,7 +268,7 @@ def checkChallenge(text):
         return False
     return True
 
-def genSession(username):
+def genSession(username:str) -> tuple:
     sessionid = uuid.uuid4().__str__()
     expirytime = time.time() + 3600
     with db_lock:
@@ -333,6 +353,11 @@ def getUserFromSession(session):
         return sess.get('username')
     except Exception as e:
         return False
+
+def genRegisterToken(username):
+    token = uuid.uuid4()
+    RegisterToken.insert({"username":username,"token":token})
+    return token
 
 @app.route("/",methods=['GET'])
 def login():

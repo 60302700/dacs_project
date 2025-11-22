@@ -1,18 +1,4 @@
-async function sha256Hash(message) {
-    // Encode the string into a Uint8Array
-    const textEncoder = new TextEncoder();
-    const data = textEncoder.encode(message);
-  
-    // Hash the data
-    const hashBuffer = await crypto.subtle.digest('SHA-256', data);
-  
-    // Convert the ArrayBuffer to a hexadecimal string
-    const hashArray = Array.from(new Uint8Array(hashBuffer));
-    const hexHash = hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
-  
-    return hexHash;
-  }
-  
+
   async function devIDreq() {
     const canvas = document.createElement('canvas');
     let n
@@ -20,7 +6,7 @@ async function sha256Hash(message) {
     if (!gl) return 'Unknown GPU';
     const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
     if (debugInfo) {
-        return await sha256Hash(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL))
+        return sha256(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL))
     }
 }
 
@@ -41,7 +27,7 @@ async function deviceID() {
     const gl = canvas.getContext('webgl') || canvas.getContext('experimental-webgl');
     if (!gl) return 'Unknown GPU';
     const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
-    if (debugInfo) document.getElementById("id").innerHTML =  await sha256Hash(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
+    if (debugInfo) document.getElementById("id").innerHTML =  sha256(gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL));
 }
 
 window.onload = deviceID;
@@ -80,7 +66,7 @@ async function register(){
         msg.innerHTML = "Please Enter A Username"
     } else {
 
-    response = await fetch("http://127.0.0.1:5000/register",{
+    response = await fetch("/register",{
         method:"POST",
         headers: {
             'Content-Type': 'application/json' // This line was added/corrected

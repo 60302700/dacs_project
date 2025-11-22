@@ -40,3 +40,465 @@
 2025-11-21 14:58:35,950 - INFO - 127.0.0.1 - - [21/Nov/2025 14:58:35] "GET / HTTP/1.1" 200 -
 2025-11-21 14:58:35,965 - INFO - 127.0.0.1 - - [21/Nov/2025 14:58:35] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
 2025-11-21 14:58:35,966 - INFO - 127.0.0.1 - - [21/Nov/2025 14:58:35] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:33:04,977 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:33:04,977 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:33:07,647 - INFO - 127.0.0.1 - - [21/Nov/2025 16:33:07] "GET / HTTP/1.1" 200 -
+2025-11-21 16:33:07,671 - INFO - 127.0.0.1 - - [21/Nov/2025 16:33:07] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 16:33:07,672 - INFO - 127.0.0.1 - - [21/Nov/2025 16:33:07] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 16:33:33,764 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:33:33,764 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:33:39,821 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 16:33:39,822 - INFO - 127.0.0.1 - - [21/Nov/2025 16:33:39] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 16:33:39,915 - ERROR - Error Occured For johndoe , Err: 415 Unsupported Media Type: Did not attempt to load JSON data because the request Content-Type was not 'application/json'.
+2025-11-21 16:33:39,916 - INFO - 127.0.0.1 - - [21/Nov/2025 16:33:39] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:34:12,511 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:34:12,511 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:34:21,637 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 16:34:21,638 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:21] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 16:34:21,745 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:21] "[35m[1mPOST /challenge/verify HTTP/1.1[0m" 500 -
+2025-11-21 16:34:21,792 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:21] "GET /challenge/verify?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1" 200 -
+2025-11-21 16:34:21,792 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:21] "GET /challenge/verify?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1" 200 -
+2025-11-21 16:34:21,822 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:21] "GET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png&s=6xZZxgpd6mm9y1JJInJB HTTP/1.1" 200 -
+2025-11-21 16:34:21,839 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:21] "GET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1" 200 -
+2025-11-21 16:34:50,541 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:34:50,541 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:34:52,194 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:52] "[35m[1mPOST /challenge/verify HTTP/1.1[0m" 500 -
+2025-11-21 16:34:52,241 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:52] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:34:52,242 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:52] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-11-21 16:34:52,265 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:52] "GET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png&s=G3i2u6VwifWN1V41rS2t HTTP/1.1" 200 -
+2025-11-21 16:34:52,287 - INFO - 127.0.0.1 - - [21/Nov/2025 16:34:52] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-11-21 16:35:21,376 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:35:21,376 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:35:23,157 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 16:35:23,158 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:23] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 16:35:23,169 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:35:23,178 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:23] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:35:23,223 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:23] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:35:23,224 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:23] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:35:35,579 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:35:35,579 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:35:36,576 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:35:36,581 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:36] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:35:36,622 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:35:36,623 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:36] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:35:39,352 - INFO - User johndoe Logged Out SucessFully
+2025-11-21 16:35:39,353 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:39] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 16:35:39,355 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:39] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 16:35:39,364 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:39] "GET / HTTP/1.1" 200 -
+2025-11-21 16:35:39,368 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:39] "GET / HTTP/1.1" 200 -
+2025-11-21 16:35:39,393 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:39] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:35:39,400 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:39] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:35:45,702 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 16:35:45,702 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:45] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 16:35:45,827 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 16:35:45,827 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:45] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 16:35:45,832 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:35:45,833 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:45] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:35:45,870 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:45] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:35:45,870 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:35:56,897 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:35:56,897 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:35:58,324 - INFO - User johndoe Logged Out SucessFully
+2025-11-21 16:35:58,325 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:58] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 16:35:58,326 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:58] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 16:35:58,334 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:58] "GET / HTTP/1.1" 200 -
+2025-11-21 16:35:58,337 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:58] "GET / HTTP/1.1" 200 -
+2025-11-21 16:35:58,379 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:35:58,380 - INFO - 127.0.0.1 - - [21/Nov/2025 16:35:58] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:36:03,468 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 16:36:03,469 - INFO - 127.0.0.1 - - [21/Nov/2025 16:36:03] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 16:36:03,568 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 16:36:03,569 - INFO - 127.0.0.1 - - [21/Nov/2025 16:36:03] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 16:36:03,574 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:36:03,580 - INFO - 127.0.0.1 - - [21/Nov/2025 16:36:03] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:36:03,618 - INFO - 127.0.0.1 - - [21/Nov/2025 16:36:03] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:36:03,619 - INFO - 127.0.0.1 - - [21/Nov/2025 16:36:03] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:37:29,627 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:37:29,627 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:37:30,700 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:37:30,707 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:30] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:37:30,763 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:37:30,764 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:30] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:37:33,658 - INFO - User johndoe Logged Out SucessFully
+2025-11-21 16:37:33,658 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:33] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 16:37:33,661 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:33] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 16:37:33,670 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:33] "GET / HTTP/1.1" 200 -
+2025-11-21 16:37:33,674 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:33] "GET / HTTP/1.1" 200 -
+2025-11-21 16:37:33,699 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:37:33,699 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:33] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:37:38,639 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 16:37:38,639 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:38] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 16:37:38,738 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:38] "[35m[1mPOST /challenge/verify HTTP/1.1[0m" 500 -
+2025-11-21 16:37:38,773 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:38] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:37:38,774 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:38] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-11-21 16:37:38,794 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:38] "GET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png&s=WWzhlKGAxwfy4IJtYFdC HTTP/1.1" 200 -
+2025-11-21 16:37:38,812 - INFO - 127.0.0.1 - - [21/Nov/2025 16:37:38] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-11-21 16:38:11,654 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:38:11,654 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:38:13,943 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:13] "[35m[1mPOST /challenge/verify HTTP/1.1[0m" 500 -
+2025-11-21 16:38:13,993 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:13] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:38:13,995 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:13] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=debugger.js HTTP/1.1[0m" 304 -
+2025-11-21 16:38:14,026 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:14] "GET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png&s=QhnamMuz2ODkdFJI78iJ HTTP/1.1" 200 -
+2025-11-21 16:38:14,045 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:14] "[36mGET /challenge/verify?__debugger__=yes&cmd=resource&f=console.png HTTP/1.1[0m" 304 -
+2025-11-21 16:38:55,170 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:38:55,170 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:38:57,651 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 16:38:57,652 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:57] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 16:38:57,665 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:38:57,671 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:57] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:38:57,729 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:38:57,730 - INFO - 127.0.0.1 - - [21/Nov/2025 16:38:57] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:39:56,774 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:39:56,774 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:39:58,595 - INFO - User johndoe Logged Out SucessFully
+2025-11-21 16:39:58,596 - INFO - 127.0.0.1 - - [21/Nov/2025 16:39:58] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 16:39:58,604 - INFO - 127.0.0.1 - - [21/Nov/2025 16:39:58] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 16:39:58,618 - INFO - 127.0.0.1 - - [21/Nov/2025 16:39:58] "GET / HTTP/1.1" 200 -
+2025-11-21 16:39:58,620 - INFO - 127.0.0.1 - - [21/Nov/2025 16:39:58] "GET / HTTP/1.1" 200 -
+2025-11-21 16:39:58,679 - INFO - 127.0.0.1 - - [21/Nov/2025 16:39:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:39:58,681 - INFO - 127.0.0.1 - - [21/Nov/2025 16:39:58] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:40:06,281 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 16:40:06,282 - INFO - 127.0.0.1 - - [21/Nov/2025 16:40:06] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 16:40:06,382 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 16:40:06,382 - INFO - 127.0.0.1 - - [21/Nov/2025 16:40:06] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 16:40:06,387 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:40:06,392 - INFO - 127.0.0.1 - - [21/Nov/2025 16:40:06] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:40:06,427 - INFO - 127.0.0.1 - - [21/Nov/2025 16:40:06] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:40:06,427 - INFO - 127.0.0.1 - - [21/Nov/2025 16:40:06] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:49:27,711 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:49:27,711 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:50:22,471 - ERROR - Error Occured For None , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:50:22,472 - INFO - 127.0.0.1 - - [21/Nov/2025 16:50:22] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:51:31,269 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:51:31,270 - INFO - 127.0.0.1 - - [21/Nov/2025 16:51:31] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:51:59,254 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:51:59,254 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:52:03,296 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:52:03,296 - INFO - 127.0.0.1 - - [21/Nov/2025 16:52:03] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:52:20,503 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:52:20,504 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:52:24,518 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:52:24,519 - INFO - 127.0.0.1 - - [21/Nov/2025 16:52:24] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:52:46,948 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:52:46,948 - INFO - 127.0.0.1 - - [21/Nov/2025 16:52:46] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:53:02,851 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:53:02,851 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:53:07,119 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:53:07,120 - INFO - 127.0.0.1 - - [21/Nov/2025 16:53:07] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:53:19,985 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:53:19,986 - INFO - 127.0.0.1 - - [21/Nov/2025 16:53:19] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:53:22,964 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 16:53:22,964 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 16:53:25,128 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 16:53:25,129 - INFO - 127.0.0.1 - - [21/Nov/2025 16:53:25] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 16:56:09,705 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:56:09,711 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:09] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:56:09,771 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:09] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:56:09,772 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:09] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:56:11,733 - INFO - User johndoe Logged Out SucessFully
+2025-11-21 16:56:11,734 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:11] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 16:56:11,738 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:11] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 16:56:11,746 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:11] "GET / HTTP/1.1" 200 -
+2025-11-21 16:56:11,750 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:11] "GET / HTTP/1.1" 200 -
+2025-11-21 16:56:11,785 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:11] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 16:56:11,787 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:11] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:56:16,976 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 16:56:16,977 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:16] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 16:56:17,076 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 16:56:17,076 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:17] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 16:56:17,080 - INFO - User johndoe Logged In SucessFully
+2025-11-21 16:56:17,080 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:17] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 16:56:17,120 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:17] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 16:56:17,121 - INFO - 127.0.0.1 - - [21/Nov/2025 16:56:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 17:08:22,963 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 17:08:22,963 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 17:08:25,729 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 17:08:25,730 - INFO - 127.0.0.1 - - [21/Nov/2025 17:08:25] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 17:08:50,020 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 17:08:50,020 - INFO - 127.0.0.1 - - [21/Nov/2025 17:08:50] "POST /challenge/verify HTTP/1.1" 200 -
+2025-11-21 17:10:12,085 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 17:10:12,086 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 17:10:15,718 - ERROR - Error Occured For hello , Err: 'NoneType' object has no attribute 'get'
+2025-11-21 17:10:15,719 - INFO - 127.0.0.1 - - [21/Nov/2025 17:10:15] "[31m[1mPOST /challenge/verify HTTP/1.1[0m" 400 -
+2025-11-21 21:06:07,764 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:5000
+ * Running on https://192.168.1.173:5000
+2025-11-21 21:06:07,764 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:07:38,870 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:5000
+ * Running on https://192.168.1.173:5000
+2025-11-21 21:07:38,870 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:08:15,669 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:5000
+ * Running on https://192.168.1.173:5000
+2025-11-21 21:08:15,669 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:08:30,478 - INFO - 127.0.0.1 - - [21/Nov/2025 21:08:30] "GET / HTTP/1.1" 200 -
+2025-11-21 21:08:52,432 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:5000
+ * Running on https://192.168.1.173:5000
+2025-11-21 21:08:52,432 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:09:22,176 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:5000
+ * Running on https://192.168.1.173:5000
+2025-11-21 21:09:22,176 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:10:36,063 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on https://127.0.0.1:5000
+ * Running on https://192.168.1.173:5000
+2025-11-21 21:10:36,063 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:10:42,831 - INFO - 127.0.0.1 - - [21/Nov/2025 21:10:42] "GET / HTTP/1.1" 200 -
+2025-11-21 21:10:42,895 - INFO - 127.0.0.1 - - [21/Nov/2025 21:10:42] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:10:42,895 - INFO - 127.0.0.1 - - [21/Nov/2025 21:10:42] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:10:43,123 - INFO - 127.0.0.1 - - [21/Nov/2025 21:10:43] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-21 21:11:05,929 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 21:11:05,929 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:05] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 21:11:06,053 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 21:11:06,053 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:06] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 21:11:06,064 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:11:06,069 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:06] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:11:06,126 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:06] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:11:06,141 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:06] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:11:22,821 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:11:22,822 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:22] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:11:22,869 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:22] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:11:22,873 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:22] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:11:24,140 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:11:24,140 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:24] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:11:24,181 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:24] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:11:24,185 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:24] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:11:41,554 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:11:41,554 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:41] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:11:41,596 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:41] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:11:41,601 - INFO - 127.0.0.1 - - [21/Nov/2025 21:11:41] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:11:56,296 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 21:11:56,297 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:12:03,267 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:12:03,273 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:03] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:12:03,320 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:03] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:12:03,322 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:03] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:12:18,211 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 21:12:18,211 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:12:21,879 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:21] "GET / HTTP/1.1" 200 -
+2025-11-21 21:12:21,938 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:21] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:12:21,938 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:21] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:12:29,391 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 21:12:29,392 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:29] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 21:12:29,497 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 21:12:29,497 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:29] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 21:12:29,502 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:12:29,506 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:29] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:12:29,539 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:29] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:12:29,540 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:29] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:12:48,515 - INFO - User johndoe Logged Out SucessFully
+2025-11-21 21:12:48,516 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:48] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 21:12:48,518 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:48] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 21:12:48,527 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:48] "GET / HTTP/1.1" 200 -
+2025-11-21 21:12:48,530 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:48] "GET / HTTP/1.1" 200 -
+2025-11-21 21:12:48,561 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:12:48,562 - INFO - 127.0.0.1 - - [21/Nov/2025 21:12:48] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:13:01,336 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 21:13:01,336 - INFO - 127.0.0.1 - - [21/Nov/2025 21:13:01] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 21:13:01,438 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 21:13:01,438 - INFO - 127.0.0.1 - - [21/Nov/2025 21:13:01] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 21:13:01,443 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:13:01,443 - INFO - 127.0.0.1 - - [21/Nov/2025 21:13:01] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:13:01,474 - INFO - 127.0.0.1 - - [21/Nov/2025 21:13:01] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:13:01,475 - INFO - 127.0.0.1 - - [21/Nov/2025 21:13:01] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:14:21,109 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 21:14:21,110 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:14:23,348 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:23] "GET / HTTP/1.1" 200 -
+2025-11-21 21:14:23,386 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:23] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:14:23,387 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:23] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:14:30,835 - INFO - Server Provided A Challenge for User johndoe
+2025-11-21 21:14:30,835 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:30] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 21:14:30,935 - INFO - Successfull Completed The Challenge for the user johndoe
+2025-11-21 21:14:30,935 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:30] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 21:14:30,940 - INFO - User johndoe Logged In SucessFully
+2025-11-21 21:14:30,945 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:30] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 21:14:30,974 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:14:30,976 - INFO - 127.0.0.1 - - [21/Nov/2025 21:14:30] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:16:21,777 - INFO - 192.168.1.156 - - [21/Nov/2025 21:16:21] "GET / HTTP/1.1" 200 -
+2025-11-21 21:16:21,853 - INFO - 192.168.1.156 - - [21/Nov/2025 21:16:21] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:16:21,877 - INFO - 192.168.1.156 - - [21/Nov/2025 21:16:21] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:16:22,082 - INFO - 192.168.1.156 - - [21/Nov/2025 21:16:22] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-21 21:17:31,751 - INFO - 192.168.1.156 - - [21/Nov/2025 21:17:31] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 21:17:31,772 - INFO - 192.168.1.156 - - [21/Nov/2025 21:17:31] "GET / HTTP/1.1" 200 -
+2025-11-21 21:17:31,826 - INFO - 192.168.1.156 - - [21/Nov/2025 21:17:31] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:17:31,846 - INFO - 192.168.1.156 - - [21/Nov/2025 21:17:31] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:24:30,431 - INFO - 192.168.1.156 - - [21/Nov/2025 21:24:30] "GET /register HTTP/1.1" 200 -
+2025-11-21 21:24:30,636 - INFO - 192.168.1.156 - - [21/Nov/2025 21:24:30] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:24:30,644 - INFO - 192.168.1.156 - - [21/Nov/2025 21:24:30] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:24:40,575 - INFO - 192.168.1.156 - - [21/Nov/2025 21:24:40] "GET / HTTP/1.1" 200 -
+2025-11-21 21:24:40,614 - INFO - 192.168.1.156 - - [21/Nov/2025 21:24:40] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:24:40,622 - INFO - 192.168.1.156 - - [21/Nov/2025 21:24:40] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:27:49,248 - INFO - 192.168.1.22 - - [21/Nov/2025 21:27:49] "GET / HTTP/1.1" 200 -
+2025-11-21 21:28:13,371 - INFO - 192.168.1.22 - - [21/Nov/2025 21:28:13] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:28:13,373 - INFO - 192.168.1.22 - - [21/Nov/2025 21:28:13] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:28:14,186 - INFO - 192.168.1.22 - - [21/Nov/2025 21:28:14] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-21 21:29:17,779 - INFO - 192.168.1.22 - - [21/Nov/2025 21:29:17] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:30:20,388 - INFO - User johndoe Logged Out SucessFully
+2025-11-21 21:30:20,388 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:20] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 21:30:20,397 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:20] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 21:30:20,407 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:20] "GET / HTTP/1.1" 200 -
+2025-11-21 21:30:20,411 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:20] "GET / HTTP/1.1" 200 -
+2025-11-21 21:30:20,444 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:20] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:30:20,445 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:20] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:30:25,691 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:25] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:30:25,706 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:25] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-11-21 21:30:29,571 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:29] "GET / HTTP/1.1" 200 -
+2025-11-21 21:30:29,652 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:29] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:30:29,667 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:29] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:30:29,685 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:29] "[33mGET /.well-known/appspecific/com.chrome.devtools.json HTTP/1.1[0m" 404 -
+2025-11-21 21:30:33,466 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:33] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:30:40,995 - INFO - 127.0.0.1 - - [21/Nov/2025 21:30:40] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:31:12,695 - INFO - 192.168.1.22 - - [21/Nov/2025 21:31:12] "GET /register HTTP/1.1" 200 -
+2025-11-21 21:31:12,769 - INFO - 192.168.1.22 - - [21/Nov/2025 21:31:12] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:31:12,776 - INFO - 192.168.1.22 - - [21/Nov/2025 21:31:12] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:32:16,781 - INFO - 192.168.1.74 - - [21/Nov/2025 21:32:16] "GET / HTTP/1.1" 200 -
+2025-11-21 21:32:16,814 - INFO - 192.168.1.74 - - [21/Nov/2025 21:32:16] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:32:16,815 - INFO - 192.168.1.74 - - [21/Nov/2025 21:32:16] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:32:17,067 - INFO - 192.168.1.74 - - [21/Nov/2025 21:32:17] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-21 21:32:24,231 - INFO - 192.168.1.74 - - [21/Nov/2025 21:32:24] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:48:41,103 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 21:48:41,103 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:48:48,478 - INFO - 192.168.1.74 - - [21/Nov/2025 21:48:48] "GET / HTTP/1.1" 200 -
+2025-11-21 21:48:48,571 - INFO - 192.168.1.74 - - [21/Nov/2025 21:48:48] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:48:48,572 - INFO - 192.168.1.74 - - [21/Nov/2025 21:48:48] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:49:33,257 - INFO - 192.168.1.74 - - [21/Nov/2025 21:49:33] "GET / HTTP/1.1" 200 -
+2025-11-21 21:49:33,303 - INFO - 192.168.1.74 - - [21/Nov/2025 21:49:33] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:49:33,308 - INFO - 192.168.1.74 - - [21/Nov/2025 21:49:33] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:49:42,678 - INFO - 192.168.1.74 - - [21/Nov/2025 21:49:42] "GET /register HTTP/1.1" 200 -
+2025-11-21 21:49:42,723 - INFO - 192.168.1.74 - - [21/Nov/2025 21:49:42] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:49:42,724 - INFO - 192.168.1.74 - - [21/Nov/2025 21:49:42] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:49:57,015 - INFO - 192.168.1.74 - - [21/Nov/2025 21:49:57] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:51:26,077 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 21:51:26,077 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:51:35,525 - INFO - 192.168.1.74 - - [21/Nov/2025 21:51:35] "GET /register HTTP/1.1" 200 -
+2025-11-21 21:51:35,569 - INFO - 192.168.1.74 - - [21/Nov/2025 21:51:35] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:51:35,570 - INFO - 192.168.1.74 - - [21/Nov/2025 21:51:35] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:51:45,468 - INFO - 192.168.1.74 - - [21/Nov/2025 21:51:45] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:52:47,211 - INFO - 192.168.1.74 - - [21/Nov/2025 21:52:47] "GET /register HTTP/1.1" 200 -
+2025-11-21 21:52:47,257 - INFO - 192.168.1.74 - - [21/Nov/2025 21:52:47] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:52:47,263 - INFO - 192.168.1.74 - - [21/Nov/2025 21:52:47] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:54:33,176 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-21 21:54:33,176 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-21 21:54:36,315 - INFO - 192.168.1.74 - - [21/Nov/2025 21:54:36] "GET /register HTTP/1.1" 200 -
+2025-11-21 21:54:36,381 - INFO - 192.168.1.74 - - [21/Nov/2025 21:54:36] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:54:36,387 - INFO - 192.168.1.74 - - [21/Nov/2025 21:54:36] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:54:44,018 - INFO - Added PublicKey for user user1
+2025-11-21 21:54:44,019 - INFO - Sucessfull Generated Private And Public Key
+2025-11-21 21:54:44,019 - INFO - {"status": "ok", "msg":"Successfull Registrered","file":data} , 201
+2025-11-21 21:54:44,019 - INFO - 192.168.1.74 - - [21/Nov/2025 21:54:44] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-11-21 21:55:00,255 - INFO - 192.168.1.74 - - [21/Nov/2025 21:55:00] "GET / HTTP/1.1" 200 -
+2025-11-21 21:55:00,301 - INFO - 192.168.1.74 - - [21/Nov/2025 21:55:00] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:55:00,306 - INFO - 192.168.1.74 - - [21/Nov/2025 21:55:00] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 21:55:08,013 - INFO - Server Provided A Challenge for User user1
+2025-11-21 21:55:08,014 - INFO - 192.168.1.74 - - [21/Nov/2025 21:55:08] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 21:55:10,495 - INFO - 192.168.1.74 - - [21/Nov/2025 21:55:10] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 21:59:51,074 - INFO - 192.168.1.74 - - [21/Nov/2025 21:59:51] "GET / HTTP/1.1" 200 -
+2025-11-21 21:59:51,116 - INFO - 192.168.1.74 - - [21/Nov/2025 21:59:51] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 21:59:51,118 - INFO - 192.168.1.74 - - [21/Nov/2025 21:59:51] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 21:59:52,401 - INFO - 192.168.1.74 - - [21/Nov/2025 21:59:52] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-21 22:00:01,418 - INFO - Server Provided A Challenge for User user1
+2025-11-21 22:00:01,419 - INFO - 192.168.1.74 - - [21/Nov/2025 22:00:01] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 22:00:07,517 - INFO - 192.168.1.74 - - [21/Nov/2025 22:00:07] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 22:01:39,703 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:39] "GET / HTTP/1.1" 200 -
+2025-11-21 22:01:39,893 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:39] "GET /static/style.css HTTP/1.1" 200 -
+2025-11-21 22:01:39,895 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:39] "GET /static/script.js HTTP/1.1" 200 -
+2025-11-21 22:01:40,135 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:40] "[33mGET /favicon.ico HTTP/1.1[0m" 404 -
+2025-11-21 22:01:46,891 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:46] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 22:01:50,004 - INFO - Server Provided A Challenge for User user1
+2025-11-21 22:01:50,005 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:50] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-21 22:01:50,663 - INFO - Successfull Completed The Challenge for the user user1
+2025-11-21 22:01:50,663 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:50] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-21 22:01:50,753 - INFO - User user1 Logged In SucessFully
+2025-11-21 22:01:50,758 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:50] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 22:01:51,368 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:51] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 22:01:51,369 - INFO - 192.168.1.74 - - [21/Nov/2025 22:01:51] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 22:03:54,247 - INFO - User user1 Logged In SucessFully
+2025-11-21 22:03:54,249 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:54] "GET /dashboard HTTP/1.1" 200 -
+2025-11-21 22:03:54,300 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:54] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 22:03:54,300 - INFO - User user1 Logged Out SucessFully
+2025-11-21 22:03:54,301 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:54] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-21 22:03:54,306 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:54] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
+2025-11-21 22:03:58,850 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:58] "[32mGET /dashboard HTTP/1.1[0m" 302 -
+2025-11-21 22:03:58,865 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:58] "GET / HTTP/1.1" 200 -
+2025-11-21 22:03:58,918 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:58] "[36mGET /static/style.css HTTP/1.1[0m" 304 -
+2025-11-21 22:03:58,921 - INFO - 192.168.1.74 - - [21/Nov/2025 22:03:58] "[36mGET /static/script.js HTTP/1.1[0m" 304 -
