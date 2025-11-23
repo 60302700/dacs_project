@@ -9,14 +9,59 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.serialization import load_der_private_key
 from cryptography.hazmat.primitives.asymmetric import padding
-
+from device_fingerprinting.production_fingerprint import ProductionFingerprintGenerator
+from tinydb import TinyDB , Query
 BASE_URL = "http://127.0.0.1:5000"
 SESSION = requests.Session()
+ClientDB = TinyDB("clientsidedb.json")
+Creds = ClientDB.table("credentials")
 
+CredQ = Query()
 
 # ----------------------
 # Helper Functions
 # ----------------------
+from pick import pick
+
+def loginCredentails():
+    all_docs = Creds.all()
+    count = len(all_docs)
+
+    # If exactly one credential document, return it
+    if count == 1:
+        only_doc = all_docs[0]
+        return Creds.get(doc_id=only_doc.doc_id)
+
+    # If more than one, show a pick menu
+    options = []
+    for doc in all_docs:
+        # Make a label for each option. Adjust what you show (filename, username, etc.)
+        label = f"{doc.get('filename')}"
+        options.append(label)
+
+    title = "Select Credentials To Use"
+    selected, index = pick(options, title)
+    # Get the corresponding document (based on index)
+    chosen_doc = all_docs[index]
+    return Creds.get(doc_id=chosen_doc.doc_id)
+        
+
+
+def saveFile(data):
+    username = data.get("username")
+    if not Creds.search(CredQ.username == username):
+        Creds.insert(data)
+
+
+def genDeviceFingerprint():
+    # Generate device fingerprint
+    generator = ProductionFingerprintGenerator()
+    fingerprint_data = generator.generate_fingerprint()
+
+    return fingerprint_data['fingerprint_hash']
+
+
+
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
@@ -24,8 +69,7 @@ def clear_screen():
 def load_encrypted_private_key(file_path: str):
     """Load encrypted private key and PIN from local JSON file."""
     try:
-        with open(file_path, "r") as f:
-            data = json.load(f)
+        data = loginCredentails()
         username = data["username"]
         pin = data["Pin"]
         blob = base64.b64decode(data["Private_Key"])
@@ -117,7 +161,7 @@ def decrypt_challenge(private_key, challenge_b64: str) -> str:
         sys.exit(1)
 
 def verify_challenge(answer,username):
-    device_id = "4425a739254f0f72daec1ed96abcd78d5e6aba5d03b6865b83a3fb86f9853ab3"
+    device_id = genDeviceFingerprint()
     x = SESSION.post(f"{BASE_URL}/challenge/verify",data={"username":username,"answer":answer,"deviceid":device_id},allow_redirects=False)
     #print(SESSION.cookies.get_dict())
 
@@ -145,8 +189,19 @@ def login():
 
 def register():
     clear_screen()
-    print("[Register] Functionality not implemented yet.")
-    input("Press Enter to continue...")
+    try:
+        print("[System] Generating DeviceID")
+        device_id = genDeviceFingerprint()
+        username = input("Enter Username: ")
+        loginFile = SESSION.post(f"{BASE_URL}/register",json={"username":username,"device_id":device_id})
+        print(loginFile)
+        data = loginFile.json()
+        data = data.get('file')
+        data['filename'] = f"{data['username']}.clog"
+        saveFile(data)
+    except Exception as e:
+        print(f"[Err] {str(e)}")
+        input("Press Enter To Continue")
 
 
 def quit_program():
