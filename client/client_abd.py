@@ -45,7 +45,81 @@ def loginCredentails():
     chosen_doc = all_docs[index]
     return Creds.get(doc_id=chosen_doc.doc_id)
         
+# "LogOut": logout,
 
+def registerDevice(username):
+    try:
+        did = ""
+        while len(did) != 128:
+            did = input("[Input] Enter Device id To Register its 128 chars long: ")
+
+        data = SESSION.post(f"{BASE_URL}/register/device",json={"username":username,"deviceid":did})
+        if data.ok:
+            print(data.json().get("msg"))
+            input("[Enter]")
+    except Exception as e:
+        print(f"[Err] {str(e)}")
+        input("[Enter]")
+
+def removeRegisteredDevice(username):
+        try:
+            index = None
+            while True:
+                data = SESSION.post(f"{BASE_URL}/register/device/all",json={"username":username})
+                # print(data.json())
+                devs = data.json()["msg"]
+                if data.ok:
+                    for k in devs:
+                        print(f"{devs.index(k)} : {k}")
+                    index = input("[Input] Enter Device id To Register its 128 chars long: ")
+                    if index.strip().lower() == "exit":
+                        break
+                    elif int(index) in range(len(devs)):
+                        data = SESSION.post(f"{BASE_URL}/register/device/delete",json={"username":username,"deviceid":devs[index]})
+                        msg = data.json()["msg"]
+                        if data.ok:
+                            print(msg)
+                            input("[Enter]")
+        except Exception as e:
+            print(f"{str(e)}")
+            input("[Enter]")
+
+def logout(username):
+    SESSION.post(f"{BASE_URL}/logout",json={"username":username})
+
+def WebuiToken(username):
+    try:
+        requestData = SESSION.post(f"{BASE_URL}/tokengen",json={"username":username})
+        data = requestData.json()
+        print(data)
+        if requestData.ok:
+            print(f"Web Session Token: {data["msg"]}")
+            input("[Enter] Press Enter To Continue")
+        else:
+            raise Exception(f"Request Err On Server Side Code: {requestData.status_code}")
+    except Exception as e:
+        print(f"{str(e)}")
+        input("Error")
+
+def getAllToken(username):
+    try:
+        while True:
+            data = SESSION.post(f"{BASE_URL}/tokengen/all",json={"username":username})
+            data = data.json().get("msg")
+            for k in data:
+                print(f"Session {data.index(k)}:{k}")
+            index = input("[Select] Select Session:")
+            if str(index).strip().lower() == "exit":
+                break
+            if int(index) not in range(len(data)):
+                continue
+            else:
+                stat = SESSION.post(f"{BASE_URL}/tokengen/delete",json={"username":username,"session":data[int(index)]})
+                if stat.ok:
+                    print("Session Deleted")
+    except Exception as e:
+        print(f"{str(e)}")
+        input("[Enter] Continue")
 
 def saveFile(data):
     username = data.get("username")
@@ -66,7 +140,7 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def load_encrypted_private_key(file_path: str):
+def load_encrypted_private_key():
     """Load encrypted private key and PIN from local JSON file."""
     try:
         data = loginCredentails()
@@ -163,7 +237,8 @@ def decrypt_challenge(private_key, challenge_b64: str) -> str:
 def verify_challenge(answer,username):
     device_id = genDeviceFingerprint()
     x = SESSION.post(f"{BASE_URL}/challenge/verify",data={"username":username,"answer":answer,"deviceid":device_id},allow_redirects=False)
-    #print(SESSION.cookies.get_dict())
+    print(x.cookies)
+    input("Enter")
 
 # ----------------------
 # Actions
@@ -172,19 +247,34 @@ def login():
     try:
         clear_screen()
         print("[Login] Starting challenge-response login...")
-
-        username, pin, encrypted_blob = load_encrypted_private_key("johnde.json")
+        username, pin, encrypted_blob = load_encrypted_private_key()
         private_key_bytes = decrypt_private_key(encrypted_blob, pin)
         private_key = load_private_key_from_bytes(private_key_bytes)
-
         challenge_b64 = request_challenge(username)
         response = decrypt_challenge(private_key, challenge_b64)
-
         verify_challenge(response,username)
         print(f"[Success] Logged In")
-        input("Press Enter to continue...")
+        cookies = SESSION.cookies.get_dict()
+        options = {
+        "LogOut": logout,
+        "Register A Device": registerDevice,
+        "Remove A Device":removeRegisteredDevice,
+        "WebUI Access Token":WebuiToken,
+        "See All Tokens":getAllToken,
+    }
+        title = "CryptoLogin"
+
+        while cookies == SESSION.cookies.get_dict():
+            option = pick(list(options.keys()), title)            
+            action = options.get(option[0])
+            if action == logout:
+                action(username)
+                return
+            if action:
+                action(username)
     except Exception as e:
         print(f"[Error] {str(e)}")
+        input("[Enter To Continue]")
 
 
 def register():

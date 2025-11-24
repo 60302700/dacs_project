@@ -66,6 +66,41 @@ def checkSession():
     if not session:
         return redirect(url_for('login'))
 
+@app.route('/register/device/all',methods=["POST"])
+def showAllDevices():
+    try:
+        username = request.json["username"]
+        if checkUser(username):
+            return jsonify({"status":"ok","msg": showAllDevicesFromUser(username)}), 200
+    except Exception as e:
+        return jsonify({"status":"Err","msg":f"{str(e)}"}),400
+
+
+@app.route('/register/device',methods=['POST'])
+def registedevice():
+    try:
+        username = request.json["username"]
+        deviceid = request.json["deviceid"]
+        addDeviceTouser(username,deviceid)
+        return jsonify({"status":"ok","msg":"Device Added"}), 200
+    except Exception as e:
+        return jsonify({"status":"Err","Msg":f"{str(e)}"}), 400
+
+@app.route("/register/device/delete",methods=["POST"])
+def removeDevice():
+    try:
+        username = request.json["username"]
+        deviceid = request.json["deviceid"]
+        DoesUserExsist = checkUser(username)
+        if DoesUserExsist:
+            status = removeDeviceFromuser(username,deviceid)
+            if status:
+                return jsonify({"status":"ok","msg":"Device Removed"}), 200
+            return jsonify({"status":"ok","msg":"Device Not Found"}), 400
+    except Exception as e:
+        return jsonify({"status":"Err","msg":f"{str(e)}"}), 400
+    
+
 @app.route('/register', methods=['POST'])
 def register():
     try:
@@ -86,7 +121,7 @@ def register():
             with db_lock:
                 users.insert(new_doc)
         
-        data =  gen_public_private_key(username)
+        data =  gen_public_private_key(username,device_id)
         logging.info(f"""{{"status": "ok", "msg":"Successfull Registrered","file":data}} , 201""")
         return jsonify({"status": "ok", "msg":"Successfull Registrered","file":data}), 201
     except Exception as e:
@@ -98,7 +133,7 @@ def rec_public_key(publicKey,user,Device_id):
         document = {
             'record_id':user,
             'public_key':publicKey,
-            "device":Device_id,
+            "device":[Device_id],
         }
         with db_lock:
             public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
@@ -116,8 +151,6 @@ def challenge():
     try:
         username = request.json["username"]
         doesUserExsist = checkUser(username)
-        print(username)
-        print(doesUserExsist)
         if not doesUserExsist:
             return {"status":"Err","msg":"User Not Found"} , 400
         PublicKey = getPublicKey(username)
@@ -181,6 +214,7 @@ def verify():
 def test_route():
     return jsonify({"message": "Server is running!"})"""
 
+
 @app.route("/dashboard",methods=['GET'])
 def userdashboard():
     token = request.cookies.get("session_token")
@@ -204,21 +238,63 @@ def logout():
         logging.info(f"User Already logged out")
         return resp
 
-@app.route("/tokengen",methods=["GET"])
-def getToken():
-    username = request.json["username"]
-    DoesUserExsist = checkUser(username)
-    if DoesUserExsist:
-        return jsonify({"status":"Err","msg":"User Not Found"}),400
-    token = genRegisterToken(username)
-    return jsonify({"status":"ok","msg":token}),200
+@app.route("/tokengen/all",methods=["POST"])
+def showToken():
+    try:
+        username = request.json["username"]
+        if checkUser(username):
+            data = getAllTokens(username)
+            return jsonify({"status":"ok","msg":data}),200
+    except Exception as e:
+        return jsonify({"status":"Err","msg":f"{str(e)}"}),400
 
+@app.route("/tokengen/delete",methods=["POST"])
+def delToken():
+        try:
+            username = request.json["username"]
+            sessionid = request.json["session"]
+            if checkUser(username):
+                boolean = delTokenFromUsername(username,sessionid)
+                if boolean:
+                    return jsonify({"status":"ok","msg":f"{sessionid} has been Deleted"}),200
+                return jsonify({"status":"ok","msg":f"{sessionid} Does Not Exsist"}),400
+        except Exception as e:
+            return jsonify({"status":"Err","msg":f"{str(e)}"})
+
+
+
+@app.route("/tokengen",methods=["POST"])
+def getToken():
+    try:
+        username = request.json["username"]
+        session = request.cookies.get("session_token")
+        DoesUserExsist = checkUser(username)
+        DoesSessionExsist = GetSession(session)
+        if not DoesUserExsist and not DoesSessionExsist:
+            return jsonify({"status":"Err","msg":"User Not Found"}),400
+        token = genRegisterToken(username)
+        return jsonify({"status":"ok","msg":token}),200
+    except Exception as e:
+        return jsonify({"status":"Err","Msg":f"{str(e)}"})
+
+def delTokenFromUsername(username,sessions):
+    status = RegisterToken.get(TokenQ.username == username)
+    if status:
+        data = status["token"]
+        if sessions in data:
+            data.remove(sessions)
+            with db_lock:
+                RegisterToken.update({"token":data},TokenQ.username == username)
+    return False
+
+def getAllTokens(username):
+    return RegisterToken.get(TokenQ.username == username).get("token")
 
 def pin_generator():
     return hex(int.from_bytes(os.urandom(32)))[2:]
 
 
-def gen_public_private_key(user:str) -> tuple:
+def gen_public_private_key(user:str,Device_id) -> tuple:
     try:
         private_key = rsa.generate_private_key(
         public_exponent=65537,
@@ -236,7 +312,7 @@ def gen_public_private_key(user:str) -> tuple:
         name = str(uuid.uuid4())+".json"
         data = privateKeyAES(private_pem,user,name)
         
-        rec_public_key(public_pem.decode("utf-8"),user,"id_123234231")
+        rec_public_key(public_pem.decode("utf-8"),user,Device_id)
         logging.info(f"Sucessfull Generated Private And Public Key")
         return data
 
@@ -315,7 +391,7 @@ def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
     encrypted_blob = salt + nonce + ciphertext
     b64_encrypted = base64.b64encode(encrypted_blob).decode('utf-8')
     if not filename:
-        filename = f"private_key_enc_{uuid.uuid4().hex}.json"
+        filename = f"private_key_enc_{uuid.uuid4().hex}.clog"
     data = {"Private_Key" : b64_encrypted , "Pin" : str(pin), "username" : user , "filename":filename}
 
     return data
@@ -354,10 +430,46 @@ def getUserFromSession(session):
     except Exception as e:
         return False
 
+def removeDeviceFromuser(username,deviceid):
+    status = users.get(UserQ.username == username)
+    if status:
+        data = status["devices"]
+        if deviceid in data:
+            data.remove(deviceid)
+            with db_lock:
+                users.update({"devices":data},UserQ.username == username)
+                return True
+    return False
+
+def addDeviceTouser(username,deviceid):
+    with db_lock:
+        data = users.get(UserQ.username == username)
+    if data is None:
+        with db_lock:
+            users.insert({
+            "username": username,
+            "devices": [deviceid]
+        })
+        return
+    devices = data.get("devices",[])
+    if deviceid not in devices:
+        devices.append(deviceid)
+        with db_lock:
+            users.update({"devices":devices}, UserQ.username == data.get('username'))
+    
+
 def genRegisterToken(username):
-    token = uuid.uuid4()
-    RegisterToken.insert({"username":username,"token":token})
+    token = str(uuid.uuid4())
+    data = RegisterToken.get(UserQ.username == username)
+    if data:
+        data["token"].append(token)
+        RegisterToken.update({"token":data["token"]},UserQ.username == username)
+    else:
+        RegisterToken.insert({"username":username,"token":[token]})
     return token
+
+def showAllDevicesFromUser(username):
+    return users.get(UserQ.username == username).get("devices")
 
 @app.route("/",methods=['GET'])
 def login():

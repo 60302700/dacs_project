@@ -1,0 +1,550 @@
+2025-11-24 14:36:19,262 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 14:36:19,262 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 14:36:23,737 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:36:23,737 - INFO - 127.0.0.1 - - [24/Nov/2025 14:36:23] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:36:23,753 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:36:23,753 - INFO - 127.0.0.1 - - [24/Nov/2025 14:36:23] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:38:00,144 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:38:00,144 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:00] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:38:00,157 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:38:00,157 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:00] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:38:21,047 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:38:21,047 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:21] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:38:21,057 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:38:21,057 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:21] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:38:28,385 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:38:28,385 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:28] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:38:28,398 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:38:28,398 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:28] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:38:33,027 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:38:33,027 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:33] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:38:33,038 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:38:33,038 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:33] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:38:45,575 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:38:45,576 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:45] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:38:45,589 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:38:45,589 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:45] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:38:51,050 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:51] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:38:51,051 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:51] "GET / HTTP/1.1" 200 -
+2025-11-24 14:38:52,555 - INFO - Server Provided A Challenge for User vvv
+2025-11-24 14:38:52,555 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:52] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:38:52,565 - ERROR - Invalid Credentials For vvv
+2025-11-24 14:38:52,565 - INFO - 127.0.0.1 - - [24/Nov/2025 14:38:52] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:40:04,354 - INFO - 127.0.0.1 - - [24/Nov/2025 14:40:04] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:40:04,355 - INFO - 127.0.0.1 - - [24/Nov/2025 14:40:04] "GET / HTTP/1.1" 200 -
+2025-11-24 14:40:07,593 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:40:07,593 - INFO - 127.0.0.1 - - [24/Nov/2025 14:40:07] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:40:07,606 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:40:07,607 - INFO - 127.0.0.1 - - [24/Nov/2025 14:40:07] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:42:31,849 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:31] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:42:31,851 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:31] "GET / HTTP/1.1" 200 -
+2025-11-24 14:42:33,072 - INFO - Server Provided A Challenge for User lllll
+2025-11-24 14:42:33,073 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:33] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:42:33,083 - ERROR - Invalid Credentials For lllll
+2025-11-24 14:42:33,083 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:33] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:42:34,680 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:34] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:42:34,681 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:34] "GET / HTTP/1.1" 200 -
+2025-11-24 14:42:36,027 - INFO - Server Provided A Challenge for User vvv
+2025-11-24 14:42:36,027 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:36] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:42:36,037 - ERROR - Invalid Credentials For vvv
+2025-11-24 14:42:36,038 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:36] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:42:41,665 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:41] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:42:41,666 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:41] "GET / HTTP/1.1" 200 -
+2025-11-24 14:42:46,783 - INFO - {"status": "Err", "msg":"User Already Exsists/Registered"} 201
+2025-11-24 14:42:46,784 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:46] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-11-24 14:42:53,596 - INFO - Server Provided A Challenge for User hhh
+2025-11-24 14:42:53,596 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:53] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:42:53,606 - ERROR - Invalid Credentials For hhh
+2025-11-24 14:42:53,606 - INFO - 127.0.0.1 - - [24/Nov/2025 14:42:53] "[33mPOST /challenge/verify HTTP/1.1[0m" 404 -
+2025-11-24 14:43:12,021 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:12] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:43:12,022 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:12] "GET / HTTP/1.1" 200 -
+2025-11-24 14:43:14,550 - INFO - Added PublicKey for user jjj
+2025-11-24 14:43:14,550 - INFO - Sucessfull Generated Private And Public Key
+2025-11-24 14:43:14,550 - INFO - {"status": "ok", "msg":"Successfull Registrered","file":data} , 201
+2025-11-24 14:43:14,550 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:14] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-11-24 14:43:27,383 - INFO - Added PublicKey for user ssdfdf
+2025-11-24 14:43:27,383 - INFO - Sucessfull Generated Private And Public Key
+2025-11-24 14:43:27,383 - INFO - {"status": "ok", "msg":"Successfull Registrered","file":data} , 201
+2025-11-24 14:43:27,383 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:27] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-11-24 14:43:29,359 - INFO - Server Provided A Challenge for User ssdfdf
+2025-11-24 14:43:29,359 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:29] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:43:29,375 - INFO - Successfull Completed The Challenge for the user ssdfdf
+2025-11-24 14:43:29,375 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:29] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 14:43:52,632 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:52] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:43:52,634 - INFO - 127.0.0.1 - - [24/Nov/2025 14:43:52] "GET / HTTP/1.1" 200 -
+2025-11-24 14:44:03,248 - INFO - Added PublicKey for user testaccount
+2025-11-24 14:44:03,248 - INFO - Sucessfull Generated Private And Public Key
+2025-11-24 14:44:03,248 - INFO - {"status": "ok", "msg":"Successfull Registrered","file":data} , 201
+2025-11-24 14:44:03,248 - INFO - 127.0.0.1 - - [24/Nov/2025 14:44:03] "[35m[1mPOST /register HTTP/1.1[0m" 201 -
+2025-11-24 14:44:04,338 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 14:44:04,339 - INFO - 127.0.0.1 - - [24/Nov/2025 14:44:04] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:44:04,349 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 14:44:04,349 - INFO - 127.0.0.1 - - [24/Nov/2025 14:44:04] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 14:46:11,978 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 14:46:11,978 - INFO - 127.0.0.1 - - [24/Nov/2025 14:46:11] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:46:11,980 - INFO - 127.0.0.1 - - [24/Nov/2025 14:46:11] "GET / HTTP/1.1" 200 -
+2025-11-24 14:47:02,961 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 14:47:02,961 - INFO - 127.0.0.1 - - [24/Nov/2025 14:47:02] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 14:47:02,974 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 14:47:02,974 - INFO - 127.0.0.1 - - [24/Nov/2025 14:47:02] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 14:47:15,218 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 14:47:15,218 - INFO - 127.0.0.1 - - [24/Nov/2025 14:47:15] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 14:47:15,220 - INFO - 127.0.0.1 - - [24/Nov/2025 14:47:15] "GET / HTTP/1.1" 200 -
+2025-11-24 15:24:40,938 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:24:40,939 - INFO - 127.0.0.1 - - [24/Nov/2025 15:24:40] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:24:40,952 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:24:40,952 - INFO - 127.0.0.1 - - [24/Nov/2025 15:24:40] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:24:45,462 - INFO - 127.0.0.1 - - [24/Nov/2025 15:24:45] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:24:50,176 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:24:50,176 - INFO - 127.0.0.1 - - [24/Nov/2025 15:24:50] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:24:50,186 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:24:50,186 - INFO - 127.0.0.1 - - [24/Nov/2025 15:24:50] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:24:53,902 - INFO - 127.0.0.1 - - [24/Nov/2025 15:24:53] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:25:05,272 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:25:05,272 - INFO - 127.0.0.1 - - [24/Nov/2025 15:25:05] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:25:05,282 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:25:05,282 - INFO - 127.0.0.1 - - [24/Nov/2025 15:25:05] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:25:11,214 - INFO - 127.0.0.1 - - [24/Nov/2025 15:25:11] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:26:05,827 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:26:05,827 - INFO - 127.0.0.1 - - [24/Nov/2025 15:26:05] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:26:05,839 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:26:05,839 - INFO - 127.0.0.1 - - [24/Nov/2025 15:26:05] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:26:26,214 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:26:26,214 - INFO - 127.0.0.1 - - [24/Nov/2025 15:26:26] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:26:26,226 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:26:26,227 - INFO - 127.0.0.1 - - [24/Nov/2025 15:26:26] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:26:32,591 - INFO - 127.0.0.1 - - [24/Nov/2025 15:26:32] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:26:54,197 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:26:54,197 - INFO - 127.0.0.1 - - [24/Nov/2025 15:26:54] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:26:54,209 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:26:54,209 - INFO - 127.0.0.1 - - [24/Nov/2025 15:26:54] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:27:42,651 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:27:42,652 - INFO - 127.0.0.1 - - [24/Nov/2025 15:27:42] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:27:42,664 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:27:42,664 - INFO - 127.0.0.1 - - [24/Nov/2025 15:27:42] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:27:45,832 - INFO - 127.0.0.1 - - [24/Nov/2025 15:27:45] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:27:49,068 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:27:49,068 - INFO - 127.0.0.1 - - [24/Nov/2025 15:27:49] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:27:49,078 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:27:49,078 - INFO - 127.0.0.1 - - [24/Nov/2025 15:27:49] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:28:09,588 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:28:09,588 - INFO - 127.0.0.1 - - [24/Nov/2025 15:28:09] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:28:09,600 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:28:09,600 - INFO - 127.0.0.1 - - [24/Nov/2025 15:28:09] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:28:14,023 - INFO - 127.0.0.1 - - [24/Nov/2025 15:28:14] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:34:57,900 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:34:57,900 - INFO - 127.0.0.1 - - [24/Nov/2025 15:34:57] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:34:57,933 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:34:57,933 - INFO - 127.0.0.1 - - [24/Nov/2025 15:34:57] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:35:02,827 - INFO - 127.0.0.1 - - [24/Nov/2025 15:35:02] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:35:04,134 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:35:04,134 - INFO - 127.0.0.1 - - [24/Nov/2025 15:35:04] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:35:04,136 - INFO - 127.0.0.1 - - [24/Nov/2025 15:35:04] "GET / HTTP/1.1" 200 -
+2025-11-24 15:35:43,859 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:35:43,860 - INFO - 127.0.0.1 - - [24/Nov/2025 15:35:43] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:35:43,903 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:35:43,903 - INFO - 127.0.0.1 - - [24/Nov/2025 15:35:43] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:35:45,139 - INFO - 127.0.0.1 - - [24/Nov/2025 15:35:45] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:36:11,573 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:11] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:36:14,159 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:36:14,159 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:14] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:36:14,161 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:14] "GET / HTTP/1.1" 200 -
+2025-11-24 15:36:17,078 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:36:17,078 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:17] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:36:17,114 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:36:17,114 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:17] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:36:17,917 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:17] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:36:19,521 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:36:19,522 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:19] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:36:19,553 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:36:19,553 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:19] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:36:22,080 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:22] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:36:47,605 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:36:47,605 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:47] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:36:47,638 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:36:47,638 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:47] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:36:49,040 - INFO - 127.0.0.1 - - [24/Nov/2025 15:36:49] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:37:22,605 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:37:22,605 - INFO - 127.0.0.1 - - [24/Nov/2025 15:37:22] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:37:22,637 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:37:22,637 - INFO - 127.0.0.1 - - [24/Nov/2025 15:37:22] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:37:23,303 - INFO - 127.0.0.1 - - [24/Nov/2025 15:37:23] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:38:20,374 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:38:20,374 - INFO - 127.0.0.1 - - [24/Nov/2025 15:38:20] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:38:20,409 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:38:20,410 - INFO - 127.0.0.1 - - [24/Nov/2025 15:38:20] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:38:29,515 - INFO - 127.0.0.1 - - [24/Nov/2025 15:38:29] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:39:59,328 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:39:59,328 - INFO - 127.0.0.1 - - [24/Nov/2025 15:39:59] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:39:59,363 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:39:59,364 - INFO - 127.0.0.1 - - [24/Nov/2025 15:39:59] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:40:04,791 - INFO - 127.0.0.1 - - [24/Nov/2025 15:40:04] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:40:32,856 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:40:32,857 - INFO - 127.0.0.1 - - [24/Nov/2025 15:40:32] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:40:32,889 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:40:32,889 - INFO - 127.0.0.1 - - [24/Nov/2025 15:40:32] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:40:33,686 - INFO - 127.0.0.1 - - [24/Nov/2025 15:40:33] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:40:52,666 - INFO - 127.0.0.1 - - [24/Nov/2025 15:40:52] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:40:54,646 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:40:54,647 - INFO - 127.0.0.1 - - [24/Nov/2025 15:40:54] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:40:54,648 - INFO - 127.0.0.1 - - [24/Nov/2025 15:40:54] "GET / HTTP/1.1" 200 -
+2025-11-24 15:41:01,365 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:41:01,365 - INFO - 127.0.0.1 - - [24/Nov/2025 15:41:01] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:41:01,401 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:41:01,401 - INFO - 127.0.0.1 - - [24/Nov/2025 15:41:01] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:41:02,394 - INFO - 127.0.0.1 - - [24/Nov/2025 15:41:02] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:42:08,012 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:42:08,012 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:08] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:42:08,013 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:08] "GET / HTTP/1.1" 200 -
+2025-11-24 15:42:09,879 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:42:09,879 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:09] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:42:09,913 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:42:09,914 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:09] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:42:12,103 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:12] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:42:13,806 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:13] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:42:30,666 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:42:30,666 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:30] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:42:30,668 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:30] "GET / HTTP/1.1" 200 -
+2025-11-24 15:42:47,912 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:42:47,913 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:47] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:42:47,947 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:42:47,947 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:47] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:42:48,811 - INFO - 127.0.0.1 - - [24/Nov/2025 15:42:48] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:43:27,135 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:43:27,135 - INFO - 127.0.0.1 - - [24/Nov/2025 15:43:27] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:43:27,166 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:43:27,167 - INFO - 127.0.0.1 - - [24/Nov/2025 15:43:27] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:43:28,096 - INFO - 127.0.0.1 - - [24/Nov/2025 15:43:28] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:44:18,546 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:44:18,546 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:18] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:44:18,580 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:44:18,581 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:18] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:44:19,165 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:19] "[31m[1mPOST /tokengen HTTP/1.1[0m" 405 -
+2025-11-24 15:44:27,660 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:44:27,660 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:27] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:44:27,662 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:27] "GET / HTTP/1.1" 200 -
+2025-11-24 15:44:30,283 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:44:30,283 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:30] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:44:30,318 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:44:30,318 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:30] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:44:31,023 - INFO - 127.0.0.1 - - [24/Nov/2025 15:44:31] "[35m[1mGET /tokengen HTTP/1.1[0m" 500 -
+2025-11-24 15:45:45,739 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:45:45,739 - INFO - 127.0.0.1 - - [24/Nov/2025 15:45:45] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:45:45,741 - INFO - 127.0.0.1 - - [24/Nov/2025 15:45:45] "GET / HTTP/1.1" 200 -
+2025-11-24 15:48:50,146 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 15:48:50,146 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 15:48:55,630 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:48:55,630 - INFO - 127.0.0.1 - - [24/Nov/2025 15:48:55] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:48:55,645 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:48:55,645 - INFO - 127.0.0.1 - - [24/Nov/2025 15:48:55] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:48:56,322 - INFO - 127.0.0.1 - - [24/Nov/2025 15:48:56] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 15:49:18,694 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:49:18,694 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:18] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:49:18,706 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:49:18,707 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:18] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:49:19,478 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:19] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 15:49:24,181 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 15:49:24,181 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 15:49:27,727 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:49:27,727 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:27] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:49:27,729 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:27] "GET / HTTP/1.1" 200 -
+2025-11-24 15:49:28,651 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:49:28,651 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:28] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:49:28,661 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:49:28,661 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:28] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:49:29,284 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:29] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 15:49:31,743 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:49:31,743 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:31] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:49:31,763 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:49:31,763 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:31] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:49:32,546 - INFO - 127.0.0.1 - - [24/Nov/2025 15:49:32] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 15:55:26,924 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:55:26,925 - INFO - 127.0.0.1 - - [24/Nov/2025 15:55:26] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:55:26,926 - INFO - 127.0.0.1 - - [24/Nov/2025 15:55:26] "GET / HTTP/1.1" 200 -
+2025-11-24 15:55:30,800 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 15:55:30,801 - INFO - 127.0.0.1 - - [24/Nov/2025 15:55:30] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 15:55:30,815 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 15:55:30,815 - INFO - 127.0.0.1 - - [24/Nov/2025 15:55:30] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 15:55:31,715 - INFO - 127.0.0.1 - - [24/Nov/2025 15:55:31] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 15:58:20,439 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 15:58:20,439 - INFO - 127.0.0.1 - - [24/Nov/2025 15:58:20] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 15:58:20,441 - INFO - 127.0.0.1 - - [24/Nov/2025 15:58:20] "GET / HTTP/1.1" 200 -
+2025-11-24 16:08:48,705 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 16:08:48,705 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 16:08:53,110 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:08:53,111 - INFO - 127.0.0.1 - - [24/Nov/2025 16:08:53] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:08:53,124 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:08:53,124 - INFO - 127.0.0.1 - - [24/Nov/2025 16:08:53] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:08:56,036 - INFO - 127.0.0.1 - - [24/Nov/2025 16:08:56] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:08:59,483 - INFO - 127.0.0.1 - - [24/Nov/2025 16:08:59] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:09:01,735 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:01] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:09:25,460 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:09:25,460 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:25] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:09:25,462 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:25] "GET / HTTP/1.1" 200 -
+2025-11-24 16:09:28,723 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 16:09:28,723 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 16:09:32,569 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:09:32,570 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:32] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:09:32,580 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:09:32,580 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:32] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:09:34,569 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:34] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:09:35,987 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:35] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:09:36,887 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:09:36,887 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:36] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:09:36,889 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:36] "GET / HTTP/1.1" 200 -
+2025-11-24 16:09:39,758 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:09:39,758 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:39] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:09:39,770 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:09:39,771 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:39] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:09:42,468 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:42] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:09:44,523 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:09:44,524 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:44] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:09:44,525 - INFO - 127.0.0.1 - - [24/Nov/2025 16:09:44] "GET / HTTP/1.1" 200 -
+2025-11-24 16:10:24,015 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:10:24,015 - INFO - 127.0.0.1 - - [24/Nov/2025 16:10:24] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:10:24,027 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:10:24,027 - INFO - 127.0.0.1 - - [24/Nov/2025 16:10:24] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:10:25,763 - INFO - 127.0.0.1 - - [24/Nov/2025 16:10:25] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:10:27,406 - INFO - 127.0.0.1 - - [24/Nov/2025 16:10:27] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:10:29,111 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:10:29,111 - INFO - 127.0.0.1 - - [24/Nov/2025 16:10:29] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:10:29,113 - INFO - 127.0.0.1 - - [24/Nov/2025 16:10:29] "GET / HTTP/1.1" 200 -
+2025-11-24 16:11:56,887 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 16:11:56,887 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 16:12:00,858 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:12:00,859 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:00] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:12:00,872 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:12:00,872 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:00] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:12:02,522 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:02] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:12:12,372 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:12] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:12:16,034 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:12:16,034 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:16] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:12:16,035 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:16] "GET / HTTP/1.1" 200 -
+2025-11-24 16:12:55,096 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:12:55,096 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:55] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:12:55,109 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:12:55,109 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:55] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:12:57,042 - INFO - 127.0.0.1 - - [24/Nov/2025 16:12:57] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:13:30,436 - INFO - 127.0.0.1 - - [24/Nov/2025 16:13:30] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:13:32,351 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:13:32,351 - INFO - 127.0.0.1 - - [24/Nov/2025 16:13:32] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:13:32,353 - INFO - 127.0.0.1 - - [24/Nov/2025 16:13:32] "GET / HTTP/1.1" 200 -
+2025-11-24 16:13:36,582 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:13:36,582 - INFO - 127.0.0.1 - - [24/Nov/2025 16:13:36] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:13:36,595 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:13:36,595 - INFO - 127.0.0.1 - - [24/Nov/2025 16:13:36] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:13:38,158 - INFO - 127.0.0.1 - - [24/Nov/2025 16:13:38] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:14:25,015 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:14:25,015 - INFO - 127.0.0.1 - - [24/Nov/2025 16:14:25] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:14:25,017 - INFO - 127.0.0.1 - - [24/Nov/2025 16:14:25] "GET / HTTP/1.1" 200 -
+2025-11-24 16:14:31,521 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 16:14:31,521 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 16:14:34,876 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:14:34,876 - INFO - 127.0.0.1 - - [24/Nov/2025 16:14:34] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:14:34,889 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:14:34,889 - INFO - 127.0.0.1 - - [24/Nov/2025 16:14:34] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:14:36,865 - INFO - 127.0.0.1 - - [24/Nov/2025 16:14:36] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:14:39,442 - INFO - 127.0.0.1 - - [24/Nov/2025 16:14:39] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:45:32,462 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 16:45:32,462 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 16:55:05,964 - INFO - 127.0.0.1 - - [24/Nov/2025 16:55:05] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:55:05,965 - INFO - 127.0.0.1 - - [24/Nov/2025 16:55:05] "GET / HTTP/1.1" 200 -
+2025-11-24 16:55:36,439 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:55:36,439 - INFO - 127.0.0.1 - - [24/Nov/2025 16:55:36] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:55:36,452 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:55:36,452 - INFO - 127.0.0.1 - - [24/Nov/2025 16:55:36] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:55:39,547 - INFO - 127.0.0.1 - - [24/Nov/2025 16:55:39] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 16:56:01,015 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:56:01,016 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:01] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:56:01,017 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:01] "GET / HTTP/1.1" 200 -
+2025-11-24 16:56:01,670 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:56:01,670 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:01] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:56:01,682 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:56:01,682 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:01] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:56:03,348 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 16:56:03,348 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:03] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 16:56:03,349 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:03] "GET / HTTP/1.1" 200 -
+2025-11-24 16:56:06,467 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 16:56:06,467 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:06] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 16:56:06,479 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 16:56:06,480 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:06] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 16:56:08,320 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:08] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 16:56:28,484 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:28] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 16:56:32,859 - INFO - 127.0.0.1 - - [24/Nov/2025 16:56:32] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:05:43,673 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:05:43,673 - INFO - 127.0.0.1 - - [24/Nov/2025 17:05:43] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:05:43,685 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:05:43,685 - INFO - 127.0.0.1 - - [24/Nov/2025 17:05:43] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:05:50,310 - INFO - 127.0.0.1 - - [24/Nov/2025 17:05:50] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:06:14,945 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:06:14,945 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:14] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:06:14,946 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:14] "GET / HTTP/1.1" 200 -
+2025-11-24 17:06:17,441 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:06:17,441 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:17] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:06:17,454 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:06:17,454 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:17] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:06:20,223 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:20] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:06:40,901 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:06:40,902 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:40] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:06:40,903 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:40] "GET / HTTP/1.1" 200 -
+2025-11-24 17:06:42,762 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:06:42,762 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:42] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:06:42,775 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:06:42,775 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:42] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:06:44,563 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:44] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:06:45,807 - INFO - 127.0.0.1 - - [24/Nov/2025 17:06:45] "POST /tokengen/delete HTTP/1.1" 200 -
+2025-11-24 17:07:50,788 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:07:50,788 - INFO - 127.0.0.1 - - [24/Nov/2025 17:07:50] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:07:50,790 - INFO - 127.0.0.1 - - [24/Nov/2025 17:07:50] "GET / HTTP/1.1" 200 -
+2025-11-24 17:07:53,098 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:07:53,098 - INFO - 127.0.0.1 - - [24/Nov/2025 17:07:53] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:07:53,110 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:07:53,110 - INFO - 127.0.0.1 - - [24/Nov/2025 17:07:53] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:07:55,167 - INFO - 127.0.0.1 - - [24/Nov/2025 17:07:55] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:08:01,984 - INFO - 127.0.0.1 - - [24/Nov/2025 17:08:01] "POST /tokengen/delete HTTP/1.1" 200 -
+2025-11-24 17:10:42,769 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:10:42,769 - INFO - 127.0.0.1 - - [24/Nov/2025 17:10:42] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:10:42,771 - INFO - 127.0.0.1 - - [24/Nov/2025 17:10:42] "GET / HTTP/1.1" 200 -
+2025-11-24 17:10:44,644 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:10:44,645 - INFO - 127.0.0.1 - - [24/Nov/2025 17:10:44] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:10:44,657 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:10:44,657 - INFO - 127.0.0.1 - - [24/Nov/2025 17:10:44] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:10:46,708 - INFO - 127.0.0.1 - - [24/Nov/2025 17:10:46] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:10:52,942 - INFO - 127.0.0.1 - - [24/Nov/2025 17:10:52] "POST /tokengen HTTP/1.1" 200 -
+2025-11-24 17:10:56,698 - INFO - 127.0.0.1 - - [24/Nov/2025 17:10:56] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:11:00,278 - INFO - 127.0.0.1 - - [24/Nov/2025 17:11:00] "POST /tokengen/delete HTTP/1.1" 200 -
+2025-11-24 17:11:00,279 - INFO - 127.0.0.1 - - [24/Nov/2025 17:11:00] "POST /tokengen/all HTTP/1.1" 200 -
+2025-11-24 17:11:05,271 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:11:05,272 - INFO - 127.0.0.1 - - [24/Nov/2025 17:11:05] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:11:05,273 - INFO - 127.0.0.1 - - [24/Nov/2025 17:11:05] "GET / HTTP/1.1" 200 -
+2025-11-24 17:25:45,561 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:25:45,562 - INFO - 127.0.0.1 - - [24/Nov/2025 17:25:45] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:25:45,581 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:25:45,582 - INFO - 127.0.0.1 - - [24/Nov/2025 17:25:45] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:26:06,488 - INFO - 127.0.0.1 - - [24/Nov/2025 17:26:06] "POST /register/device HTTP/1.1" 200 -
+2025-11-24 17:27:14,521 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:27:14,521 - INFO - 127.0.0.1 - - [24/Nov/2025 17:27:14] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:27:14,525 - INFO - 127.0.0.1 - - [24/Nov/2025 17:27:14] "GET / HTTP/1.1" 200 -
+2025-11-24 17:27:18,366 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:27:18,366 - INFO - 127.0.0.1 - - [24/Nov/2025 17:27:18] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:27:18,386 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:27:18,386 - INFO - 127.0.0.1 - - [24/Nov/2025 17:27:18] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:27:52,835 - INFO - 127.0.0.1 - - [24/Nov/2025 17:27:52] "POST /register/device HTTP/1.1" 200 -
+2025-11-24 17:28:54,825 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:28:54,826 - INFO - 127.0.0.1 - - [24/Nov/2025 17:28:54] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:28:54,830 - INFO - 127.0.0.1 - - [24/Nov/2025 17:28:54] "GET / HTTP/1.1" 200 -
+2025-11-24 17:29:11,189 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:29:11,189 - INFO - 127.0.0.1 - - [24/Nov/2025 17:29:11] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:29:11,208 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:29:11,209 - INFO - 127.0.0.1 - - [24/Nov/2025 17:29:11] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:29:20,739 - INFO - 127.0.0.1 - - [24/Nov/2025 17:29:20] "POST /register/device HTTP/1.1" 200 -
+2025-11-24 17:29:56,682 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 17:29:56,682 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 17:30:01,705 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:30:01,705 - INFO - 127.0.0.1 - - [24/Nov/2025 17:30:01] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:30:01,709 - INFO - 127.0.0.1 - - [24/Nov/2025 17:30:01] "GET / HTTP/1.1" 200 -
+2025-11-24 17:30:16,645 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:30:16,645 - INFO - 127.0.0.1 - - [24/Nov/2025 17:30:16] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:30:16,665 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:30:16,666 - INFO - 127.0.0.1 - - [24/Nov/2025 17:30:16] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:30:21,786 - INFO - 127.0.0.1 - - [24/Nov/2025 17:30:21] "POST /register/device HTTP/1.1" 200 -
+2025-11-24 17:33:21,258 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:33:21,259 - INFO - 127.0.0.1 - - [24/Nov/2025 17:33:21] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:33:21,262 - INFO - 127.0.0.1 - - [24/Nov/2025 17:33:21] "GET / HTTP/1.1" 200 -
+2025-11-24 17:33:24,059 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:33:24,059 - INFO - 127.0.0.1 - - [24/Nov/2025 17:33:24] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:33:24,079 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:33:24,079 - INFO - 127.0.0.1 - - [24/Nov/2025 17:33:24] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:33:40,538 - INFO - 127.0.0.1 - - [24/Nov/2025 17:33:40] "POST /register/device HTTP/1.1" 200 -
+2025-11-24 17:51:22,330 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:51:22,331 - INFO - 127.0.0.1 - - [24/Nov/2025 17:51:22] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:51:22,334 - INFO - 127.0.0.1 - - [24/Nov/2025 17:51:22] "GET / HTTP/1.1" 200 -
+2025-11-24 17:52:54,938 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 17:52:54,939 - INFO - 127.0.0.1 - - [24/Nov/2025 17:52:54] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 17:52:54,958 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 17:52:54,958 - INFO - 127.0.0.1 - - [24/Nov/2025 17:52:54] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 17:53:02,161 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 17:53:02,161 - INFO - 127.0.0.1 - - [24/Nov/2025 17:53:02] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 17:53:02,166 - INFO - 127.0.0.1 - - [24/Nov/2025 17:53:02] "GET / HTTP/1.1" 200 -
+2025-11-24 18:07:41,384 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 18:07:41,384 - INFO - 127.0.0.1 - - [24/Nov/2025 18:07:41] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 18:07:41,396 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 18:07:41,397 - INFO - 127.0.0.1 - - [24/Nov/2025 18:07:41] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 18:07:44,865 - INFO - 127.0.0.1 - - [24/Nov/2025 18:07:44] "[33mPOST /register/device/all HTTP/1.1[0m" 404 -
+2025-11-24 18:07:53,193 - INFO - [31m[1mWARNING: This is a development server. Do not use it in a production deployment. Use a production WSGI server instead.[0m
+ * Running on all addresses (0.0.0.0)
+ * Running on http://127.0.0.1:5000
+ * Running on http://192.168.1.173:5000
+2025-11-24 18:07:53,193 - INFO - [33mPress CTRL+C to quit[0m
+2025-11-24 18:07:56,751 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 18:07:56,752 - INFO - 127.0.0.1 - - [24/Nov/2025 18:07:56] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 18:07:56,755 - INFO - 127.0.0.1 - - [24/Nov/2025 18:07:56] "GET / HTTP/1.1" 200 -
+2025-11-24 18:07:59,347 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 18:07:59,347 - INFO - 127.0.0.1 - - [24/Nov/2025 18:07:59] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 18:07:59,361 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 18:07:59,361 - INFO - 127.0.0.1 - - [24/Nov/2025 18:07:59] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 18:08:01,778 - INFO - 127.0.0.1 - - [24/Nov/2025 18:08:01] "POST /register/device/all HTTP/1.1" 200 -
+2025-11-24 18:09:18,274 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 18:09:18,274 - INFO - 127.0.0.1 - - [24/Nov/2025 18:09:18] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 18:09:18,278 - INFO - 127.0.0.1 - - [24/Nov/2025 18:09:18] "GET / HTTP/1.1" 200 -
+2025-11-24 18:09:21,970 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 18:09:21,971 - INFO - 127.0.0.1 - - [24/Nov/2025 18:09:21] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 18:09:21,983 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 18:09:21,983 - INFO - 127.0.0.1 - - [24/Nov/2025 18:09:21] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 18:09:24,154 - INFO - 127.0.0.1 - - [24/Nov/2025 18:09:24] "POST /register/device/all HTTP/1.1" 200 -
+2025-11-24 18:10:20,767 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 18:10:20,768 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:20] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 18:10:20,771 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:20] "GET / HTTP/1.1" 200 -
+2025-11-24 18:10:23,182 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 18:10:23,182 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:23] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 18:10:23,195 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 18:10:23,195 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:23] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 18:10:26,410 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:26] "POST /register/device/all HTTP/1.1" 200 -
+2025-11-24 18:10:43,546 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 18:10:43,547 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:43] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 18:10:43,560 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 18:10:43,560 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:43] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 18:10:49,830 - INFO - 127.0.0.1 - - [24/Nov/2025 18:10:49] "POST /register/device/all HTTP/1.1" 200 -
+2025-11-24 18:12:14,386 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 18:12:14,387 - INFO - 127.0.0.1 - - [24/Nov/2025 18:12:14] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 18:12:14,389 - INFO - 127.0.0.1 - - [24/Nov/2025 18:12:14] "GET / HTTP/1.1" 200 -
+2025-11-24 18:12:18,036 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 18:12:18,036 - INFO - 127.0.0.1 - - [24/Nov/2025 18:12:18] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 18:12:18,049 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 18:12:18,049 - INFO - 127.0.0.1 - - [24/Nov/2025 18:12:18] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 18:12:19,890 - INFO - 127.0.0.1 - - [24/Nov/2025 18:12:19] "POST /register/device/all HTTP/1.1" 200 -
+2025-11-24 18:12:31,961 - INFO - User testaccount Logged Out SucessFully
+2025-11-24 18:12:31,961 - INFO - 127.0.0.1 - - [24/Nov/2025 18:12:31] "[32mPOST /logout HTTP/1.1[0m" 302 -
+2025-11-24 18:12:31,965 - INFO - 127.0.0.1 - - [24/Nov/2025 18:12:31] "GET / HTTP/1.1" 200 -
+2025-11-24 18:20:30,407 - INFO - Server Provided A Challenge for User testaccount
+2025-11-24 18:20:30,407 - INFO - 127.0.0.1 - - [24/Nov/2025 18:20:30] "[35m[1mPOST /challenge HTTP/1.1[0m" 201 -
+2025-11-24 18:20:30,422 - INFO - Successfull Completed The Challenge for the user testaccount
+2025-11-24 18:20:30,422 - INFO - 127.0.0.1 - - [24/Nov/2025 18:20:30] "[32mPOST /challenge/verify HTTP/1.1[0m" 302 -
+2025-11-24 18:20:36,522 - INFO - 127.0.0.1 - - [24/Nov/2025 18:20:36] "POST /tokengen/all HTTP/1.1" 200 -
