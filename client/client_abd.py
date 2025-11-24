@@ -11,8 +11,10 @@ from cryptography.hazmat.primitives.serialization import load_der_private_key
 from cryptography.hazmat.primitives.asymmetric import padding
 from device_fingerprinting.production_fingerprint import ProductionFingerprintGenerator
 from tinydb import TinyDB , Query
+import pyperclip
 BASE_URL = "http://127.0.0.1:5000"
 SESSION = requests.Session()
+
 ClientDB = TinyDB("clientsidedb.json")
 Creds = ClientDB.table("credentials")
 
@@ -24,7 +26,10 @@ CredQ = Query()
 from pick import pick
 
 def loginCredentails():
+    clear_screen()
+    print("accessing db")
     all_docs = Creds.all()
+    print(all_docs)
     count = len(all_docs)
 
     # If exactly one credential document, return it
@@ -48,6 +53,7 @@ def loginCredentails():
 # "LogOut": logout,
 
 def registerDevice(username):
+    clear_screen()
     try:
         did = ""
         while len(did) != 128:
@@ -62,6 +68,7 @@ def registerDevice(username):
         input("[Enter]")
 
 def removeRegisteredDevice(username):
+        clear_screen()
         try:
             index = None
             while True:
@@ -85,9 +92,11 @@ def removeRegisteredDevice(username):
             input("[Enter]")
 
 def logout(username):
+    clear_screen()
     SESSION.post(f"{BASE_URL}/logout",json={"username":username})
 
 def WebuiToken(username):
+    clear_screen()
     try:
         requestData = SESSION.post(f"{BASE_URL}/tokengen",json={"username":username})
         data = requestData.json()
@@ -128,13 +137,22 @@ def saveFile(data):
 
 
 def genDeviceFingerprint():
+    clear_screen()
     # Generate device fingerprint
     generator = ProductionFingerprintGenerator()
     fingerprint_data = generator.generate_fingerprint()
-
     return fingerprint_data['fingerprint_hash']
 
-
+def displaygenDeviceFingerprint():
+    copy = None
+    generator = ProductionFingerprintGenerator()
+    DevID = generator.generate_fingerprint()['fingerprint_hash']
+    while copy not in ['y','n']:
+        clear_screen()
+        print(f"Device Fingerprint: {DevID}")
+        copy = input("Would You Like To Copy The ID? (y/n)").lower()
+        if copy == 'y':pyperclip.copy(DevID)    
+        else: return
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
@@ -261,16 +279,19 @@ def login():
         "Remove A Device":removeRegisteredDevice,
         "WebUI Access Token":WebuiToken,
         "See All Tokens":getAllToken,
+        "See Device ID":displaygenDeviceFingerprint,
     }
         title = "CryptoLogin"
 
         while cookies == SESSION.cookies.get_dict():
             option = pick(list(options.keys()), title)            
             action = options.get(option[0])
-            if action == logout:
+            if action == displaygenDeviceFingerprint:
+                action()
+            elif action == logout:
                 action(username)
                 return
-            if action:
+            elif action:
                 action(username)
     except Exception as e:
         print(f"[Error] {str(e)}")
@@ -307,6 +328,7 @@ def main():
     options = {
         "Login": login,
         "Register": register,
+        "Show Device ID":displaygenDeviceFingerprint,
         "Exit": quit_program,
     }
     title = "CryptoLogin"
