@@ -109,9 +109,53 @@ form {
     border-radius: 10px;
 }
 
-#json {
-    display: none;
+#token {
+    height: 45px;
+    width: 100%;
+    max-width: 320px;
+
+    border-radius: 10px;
+    padding: 0 14px;
+
+    font-size: 1rem;
+    color: #222;
+
+    border: 2px solid #d1d1d1;
+    background: #fafafa;
+
+    transition: border-color 0.25s ease, background 0.25s ease;
+    outline: none;
 }
+
+/* Placeholder text */
+#token::placeholder {
+    color: #999;
+}
+
+/* Focus effect */
+#token:focus {
+    border-color: #4b8df8;
+    background: #fff;
+    box-shadow: 0 0 7px rgba(75, 141, 248, 0.3);
+}
+
+.input-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.input-icon {
+    position: absolute;
+    left: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #777;
+}
+
+#token {
+    padding-left: 38px; /* space for icon */
+}
+
 
 /* =========================
    UPLOAD BUTTON

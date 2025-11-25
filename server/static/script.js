@@ -55,7 +55,7 @@ async function register(){
     event.preventDefault()
     let uname = document.getElementById('username').value
     let msg = document.getElementById('output')
-    console.log("working?")
+    // console.log("working?")
     const dataPayload = {
         username: uname,
         device_id: await devIDreq()
@@ -167,21 +167,15 @@ function base64ToArrayBuffer(b64) {
     return b64output.buffer
 }
 
-async function challenge(){
-    let file = document.getElementById("json")
-    info = file.files[0]
-    info = await JSON.parse(await info.text())
-    loginoutput = document.getElementById('loginoutput')
-    username = info.username
-    priKey = info.Private_Key
-    Pin = info.Pin
+async function tokenAuth(){
+    token = "d5d599b1-02b1-4e2b-82a9-38f2e192940f"
     
     // Asking For Challenge
-    x = await fetch("/challenge",
+    x = await fetch("/GetWebSession",
          {method:"POST",headers:{'Content-Type':'application/json'},
         body:JSON.stringify({"username":username})})
     data = await x.json()
-    console.log(data)
+    // console.log(data)
     let status = data.status
     if (status == "Err"){
         loginoutput.innerHTML = data.msg
@@ -219,6 +213,7 @@ function copyHash() {
 
 async function logout(){
     username = document.getElementsByClassName('user-btn')[0].textContent
+    // console.log("hmm")
     x = await fetch("/logout",
         {method:"POST",headers:{'Content-Type':'application/json'},
        body:JSON.stringify({"username":username})})

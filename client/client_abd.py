@@ -99,22 +99,28 @@ def WebuiToken(username):
     clear_screen()
     try:
         requestData = SESSION.post(f"{BASE_URL}/tokengen",json={"username":username})
-        data = requestData.json()
-        print(data)
+        data = requestData.json() 
+        print("[Info] Generating WebToken")       
         if requestData.ok:
-            print(f"Web Session Token: {data["msg"]}")
+            print(f"New Web Token: {data["msg"]}")
             input("[Enter] Press Enter To Continue")
         else:
             raise Exception(f"Request Err On Server Side Code: {requestData.status_code}")
     except Exception as e:
-        print(f"{str(e)}")
+        print(f"[Error] {str(e)}")
         input("Error")
 
 def getAllToken(username):
     try:
+        clear_screen()
         while True:
+            clear_screen()
             data = SESSION.post(f"{BASE_URL}/tokengen/all",json={"username":username})
             data = data.json().get("msg")
+            if len(data) == 0:
+                print("[INFO] No Web Sessions")
+                input("[Enter]")
+                return
             for k in data:
                 print(f"Session {data.index(k)}:{k}")
             index = input("[Select] Select Session:")
@@ -125,7 +131,8 @@ def getAllToken(username):
             else:
                 stat = SESSION.post(f"{BASE_URL}/tokengen/delete",json={"username":username,"session":data[int(index)]})
                 if stat.ok:
-                    print("Session Deleted")
+                    msg = stat.json().get('msg')
+                    print(f"Session Deleted {msg}")
     except Exception as e:
         print(f"{str(e)}")
         input("[Enter] Continue")

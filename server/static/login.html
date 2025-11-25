@@ -4,9 +4,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CryptoLogin</title>
-    <link rel="stylesheet"  href="/static/style.css">
+    <link rel="stylesheet"  href="static/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-    <script  src="/static/script.js"></script>
+    <script  src="static/script.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.11.1/sha256.min.js"></script>
 </head>
 <body>
@@ -18,20 +18,14 @@
         </ul>
     </nav>
     <main class="container">
-                <form id="form" method="POST" action="/challenge/verify">
+                <form id="form" method="POST" action="/genWebSession">
                 <h1 id="title">Login</h1>
-                <div class="form-group">
-                    <label for="json" class="upload-btn">
-                        <i style="font-size: xx-large;" class="fa-solid fa-cloud-upload"></i>                        
-                        Upload Your Key
-                    </label>
-                    <input id="json" name="file" type="file">
-                    <input id="hiddeninputanswer" name="answer" type="hidden">
-                    <input id="hiddeninputuser" name="username" type="hidden">
-                    <input id="hiddendevid" name="deviceid" type="hidden">
-                </div>     
+                <div class="input-wrapper">
+                    <i class="fa-solid fa-key input-icon"></i>
+                    <input id="token" name="token" type="text" placeholder="Enter Token">
+                </div>                
                 <p id="loginoutput"></p>
-                <button class="login-btn" type="button" onclick="challenge()">Login</button>
+                <button class="login-btn" type="submit">Login</button>
                 <a id="register" href="/register">Register</a>
             </form>
     </main>

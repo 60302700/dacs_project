@@ -31,9 +31,9 @@ logging.basicConfig(
 
 app = Flask(__name__)
 
+db_lock = threading.Lock()
 DB = TinyDB("Database.json")
 
-db_lock = threading.Lock()
 
 users = DB.table("users")
 login_sessions = DB.table("Sessions")
@@ -54,12 +54,12 @@ registerPage = open("static/register.html").read()
 
 SERVER = "http://127.0.0.1:5000"
 
-EXEMPT_ROUTES = ['login', 'register', 'challenge', 'verify','registerhtml']
+EXEMPT_ROUTES = ['login', 'register', 'challenge', 'verify','registerhtml','genWebSession','PublicKey','rec_public_key']
 
 @app.before_request
 def checkSession():
     endpoint = request.endpoint
-    # print(endpoint)
+    #print(endpoint)
     if endpoint in EXEMPT_ROUTES or endpoint is None or request.path.startswith("/static/"):return
     session_token = request.cookies.get("session_token")
     session = GetSession(session_token)
@@ -74,7 +74,7 @@ def showAllDevices():
             return jsonify({"status":"ok","msg": showAllDevicesFromUser(username)}), 200
     except Exception as e:
         return jsonify({"status":"Err","msg":f"{str(e)}"}),400
-
+    
 
 @app.route('/register/device',methods=['POST'])
 def registedevice():
@@ -120,25 +120,30 @@ def register():
             }
             with db_lock:
                 users.insert(new_doc)
-        
-        data =  gen_public_private_key(username,device_id)
-        logging.info(f"""{{"status": "ok", "msg":"Successfull Registrered","file":data}} , 201""")
-        return jsonify({"status": "ok", "msg":"Successfull Registrered","file":data}), 201
+    
+        logging.info(f"""{{"status": "ok", "msg":"Successfull Registrered"}} , 201""")
+        return jsonify({"status": "ok", "msg":"Successfull Registrered","user":username,"device_id":device_id}), 201
     except Exception as e:
-        print(f"{str(e)}")
+        logging.info(f"{str(e)}")
+        #print(f"{str(e)}")
 
 
-def rec_public_key(publicKey,user,Device_id):
+@app.route("/PublicKey",methods=["POST"])
+def rec_public_key():
     try:
-        document = {
+        publicKey = request.json["publicKey"]
+        user = request.json["user"]
+        Device_id = request.json["Device_id"]
+        if checkUser(user):
+            document = {
             'record_id':user,
             'public_key':publicKey,
             "device":[Device_id],
         }
-        with db_lock:
-            public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
-            logging.info(f"Added PublicKey for user {user}")
-        return True
+            with db_lock:
+                public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
+                logging.info(f"Added PublicKey for user {user}")
+            return True
     except Exception as e:
         logging.info(f"""{"status":"Err","msg":str(e)}, 400""")
         return jsonify({"status":"Err","msg":str(e)}), 400
@@ -191,12 +196,14 @@ def verify():
             device_id = request.json["deviceid"]
         result = checkChallenge(answer)
         devid = checkDevID(username,device_id)
-        # print(result)
-        # print(devid)
-        # print(username)
+        # #print(result)
+        # #print(devid)
+        # #print(username)
+        #print(result,devid)
         if result and devid:
             sessionid,expiretime = genSession(username)
-            # print(sessionid)
+            #print(sessionid,expiretime)
+            # #print(sessionid)
             resp = make_response(redirect(url_for("userdashboard")))
             resp.set_cookie("session_token",sessionid,samesite="Lax",expires=expiretime)
             logging.info(f"Successfull Completed The Challenge for the user {username}")
@@ -207,7 +214,19 @@ def verify():
     except Exception as e:
         logging.error(f"Error Occured For {username} , Err: {str(e)}")
         return jsonify({"status":"Err","msg":str(e)}), 400
-    
+
+
+@app.route("/genWebSession",methods=["POST"])
+def genWebSession():
+    token = request.form.get('token')
+    username = checkToken(token)
+    if username:
+        sessionid,expirytime = genSession(username,token)
+        resp = make_response(redirect(url_for("userdashboard")))
+        resp.set_cookie("session_token",sessionid,samesite="Lax",expires=expirytime)
+        logging.info(f"Successfull Completed The Challenge for the user {username}")
+        return resp
+    return jsonify({"status":"Err","msg":"Invalid Token"}),400
 # For testing the server, run the file and open http://127.0.0.1:5000/test in the browser
 
 """@app.route("/test", methods=["GET"])
@@ -228,6 +247,7 @@ def logout():
     session_id = request.cookies.get("session_token")
     doesUserExsist = checkUser(username)
     SessionExsist = GetSession(session_id)
+    #print(username,session_id)
     resp = make_response(redirect(url_for("login")))
     resp.delete_cookie('session_token')
     if doesUserExsist and SessionExsist:
@@ -285,7 +305,11 @@ def delTokenFromUsername(username,sessions):
             data.remove(sessions)
             with db_lock:
                 RegisterToken.update({"token":data},TokenQ.username == username)
+            with db_lock:
+                login_sessions.remove(SessionQ.token == sessions)
+            return True
     return False
+
 
 def getAllTokens(username):
     return RegisterToken.get(TokenQ.username == username).get("token")
@@ -344,11 +368,11 @@ def checkChallenge(text):
         return False
     return True
 
-def genSession(username:str) -> tuple:
+def genSession(username:str,token=None) -> tuple:
     sessionid = uuid.uuid4().__str__()
     expirytime = time.time() + 3600
     with db_lock:
-        login_sessions.insert({"username": username,"session_id": sessionid,"expirytime": expirytime})
+        login_sessions.insert({"username": username,"session_id": sessionid,"expirytime": expirytime,"token":token})
     return sessionid,expirytime
 
 def cleanup_expired():
@@ -405,7 +429,7 @@ def GetSession(session):
             return False
         return True
     except Exception as e:
-        print(str(e))
+        #print(str(e))
         return False
 
 def RemoveSession(session):
@@ -468,6 +492,15 @@ def genRegisterToken(username):
         RegisterToken.insert({"username":username,"token":[token]})
     return token
 
+def checkToken(token):
+    alltoken = RegisterToken.get(TokenQ.token.any([token]))
+    #print(alltoken)
+    if alltoken:
+        return alltoken['username']
+    return False
+
+
+
 def showAllDevicesFromUser(username):
     return users.get(UserQ.username == username).get("devices")
 
@@ -479,7 +512,14 @@ def login():
 def registerhtml():
     return Response(registerPage , mimetype='text/html')
 
+@app.route("/chat",methods=['GET'])
+def chats():
+    token = request.cookies.get("session_token")
+    user = getUserFromSession(token)
+    logging.info(f"User {user} Logged In SucessFully")
+    return render_template('chat.html', Username=user)
+
 if __name__ == '__main__':
     threading.Thread(target=expiry_monitor, daemon=True).start()
     app.run(host='0.0.0.0', port=5000,debug=True,use_reloader=False)
-    #print(getUserFromSession('a2a9db1c-6884-4f6c-9ef0-b4f29e21bb53'))
+    ##print(getUserFromSession('a2a9db1c-6884-4f6c-9ef0-b4f29e21bb53'))

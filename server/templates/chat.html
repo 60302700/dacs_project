@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Chat Interface</title>
+    <!-- Link to the custom CSS -->
+    <link rel="stylesheet" href="static/style.css">
+    <script  src="static/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    
+    <!-- Minimal internal styling to make the chat window functional and separate the main area -->
+    <style>
+        .chat-content-wrapper {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            max-width: 800px; /* Max width constraint */
+            margin: 20px auto;
+            padding: 20px;
+            flex-grow: 1;
+        }
+
+        #chat-window {
+            flex-grow: 1;
+            overflow-y: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--bg-secondary);
+            padding: 15px;
+            min-height: 400px; /* Ensure visibility */
+            margin-bottom: 15px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #message-form {
+            /* Resetting the huge padding from the custom CSS form block, which is intended for the login page */
+            padding: 15px 25px; 
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            background-color: var(--bg);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            gap: 10px; /* Adjust gap for cleaner input area */
+        }
+        
+        #message-form h2 {
+            margin-bottom: 10px;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        /* Basic message styling based on colors from theme variables */
+        .chat-message {
+            padding: 8px 12px;
+            margin: 5px 0;
+            border-radius: 12px;
+            max-width: 75%;
+            line-height: 1.4;
+            font-size: 0.9em;
+            word-wrap: break-word;
+        }
+
+        .outgoing {
+            background-color: var(--accent-soft);
+            color: white;
+            float: right;
+            margin-left: auto;
+            border-bottom-right-radius: 4px;
+        }
+
+        .incoming {
+            background-color: #e5e7eb; /* Light gray */
+            color: var(--text);
+            float: left;
+            margin-right: auto;
+            border-bottom-left-radius: 4px;
+        }
+        
+        /* Utility class to clear floats after messages */
+        .chat-message:after {
+            content: "";
+            display: table;
+            clear: both;
+        }
+
+        /* Input field alignment */
+        .input-wrapper .input-field {
+            /* Ensure input uses full width and matches the style of #token */
+            width: 100%;
+            height: 45px;
+            padding: 0 14px;
+            padding-left: 38px; /* space for icon */
+            border: 2px solid var(--border-color);
+            background: var(--bg-secondary);
+        }
+
+        .input-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+    </style>
+    
+    <script>
+        // --- Firebase Configuration (Required for Canvas Environment) ---
+        // This is necessary boilerplate, even if not used for static chat
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        document.addEventListener('DOMContentLoaded', () => {
+            username = document.getElementsByClassName('user-btn')[0].textContent
+            
+            const form = document.getElementById('message-form');
+            const input = document.getElementById('message-input');
+            const chatWindow = document.getElementById('chat-window');
+
+            // Dummy function to simulate sending a message (Echo)
+            form.addEventListener('submit', (e) => {
+                e.preventDefault();
+                const messageText = input.value.trim();
+                if (messageText) {
+                    addMessage(messageText, 'outgoing');
+                    input.value = '';
+                    setTimeout(() => {
+                        addMessage(`Echo: ${messageText}`, 'incoming');
+                    }, 500);
+                }
+            });
+
+            // Function to add a message to the chat window
+            function addMessage(text, type) {
+                const messageDiv = document.createElement('div');
+                messageDiv.className = `chat-message ${type}`;
+                
+                const sender = type === 'outgoing' ? `${username}` : 'ChatBot';
+                const content = `<span style="font-weight: 700; display: block; font-size: 0.8em; margin-bottom: 2px;">${sender}:</span><p>${text}</p>`;
+
+                messageDiv.innerHTML = content;
+                chatWindow.appendChild(messageDiv);
+                
+                // Scroll to the latest message
+                chatWindow.scrollTop = chatWindow.scrollHeight;
+            }
+
+            // Initial message
+            addMessage("Welcome! This is an echo chat. Your messages will be repeated back.", 'incoming');
+        });
+    </script>
+</head>
+<body>
+
+    <!-- Navigation Bar: Uses custom ID #navbar -->
+    <nav>
+        <ul id="navbar">
+            <li>CryptoChat</li>
+            <!-- User placeholder -->
+            <li>
+                <form class="user-btn"><button style="padding: 0px;border: none;background: transparent;color: var(--bg-secondary);"onclick="logout()">{{Username}}</button ></form>
+            </li>
+        </ul>
+    </nav>
+
+    <!-- Main Content Wrapper: Uses class 'container' and a wrapper for chat-specific layout -->
+    <main class="container">
+        <div class="chat-content-wrapper">
+            <!-- Chat Window -->
+            <div id="chat-window">
+                <!-- Messages will be appended here by JavaScript -->
+            </div>
+
+            <!-- Message Input Form: Uses custom ID #message-form -->
+            <form id="message-form">
+                <h2 id="title">Send Message</h2>
+                <div class="input-controls">
+                    <!-- Input Wrapper (Using .input-wrapper and .input-field) -->
+                    <div class="input-wrapper" style="flex-grow: 1;">
+                        <i class="fa-solid fa-message input-icon"></i>
+                        <input 
+                            id="message-input" 
+                            name="message" 
+                            type="text" 
+                            placeholder="Type your message..."
+                            class="input-field"
+                            required
+                        >
+                    </div>
+                    
+                    <!-- Send Button: Uses custom class 'login-btn' -->
+                    <button 
+                        class="login-btn" 
+                        type="submit"
+                        style="height: 45px; width: auto; padding: 0 20px; border-radius: 6px; font-size: 15px;"
+                    >
+                        <i class="fa-solid fa-paper-plane"></i>
+                    </button>
+                </div>
+                <!-- Output area for potential errors/status -->
+                <p id="chat-output" style="color: red; font-size: 0.9em;"></p>
+            </form>
+        </div>
+    </main>
+</body>
+</html>
