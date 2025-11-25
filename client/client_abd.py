@@ -12,11 +12,29 @@ from cryptography.hazmat.primitives.asymmetric import padding
 from device_fingerprinting.production_fingerprint import ProductionFingerprintGenerator
 from tinydb import TinyDB , Query
 import pyperclip
+from getmac import get_mac_address as gma
+from hashlib import sha256
+from requests.exceptions import JSONDecodeError
+from cryptography.hazmat.primitives.asymmetric import rsa,padding
+from cryptography.hazmat.primitives.serialization import (
+    PublicFormat,
+    PrivateFormat,
+    Encoding,
+    NoEncryption,
+    load_pem_public_key
+)
+
+from cryptography.hazmat.primitives.ciphers.aead import AESGCM
+from cryptography.hazmat.primitives.kdf.pbkdf2 import PBKDF2HMAC
+from cryptography.hazmat.primitives import hashes
+import uuid
+
 BASE_URL = "http://127.0.0.1:5000"
 SESSION = requests.Session()
 
 ClientDB = TinyDB("clientsidedb.json")
 Creds = ClientDB.table("credentials")
+Sessions = ClientDB.table('sessions')
 
 CredQ = Query()
 
@@ -24,6 +42,52 @@ CredQ = Query()
 # Helper Functions
 # ----------------------
 from pick import pick
+
+def validatesession():
+    clear_screen()
+    session = Sessions.all()
+    if len(session) == 0:
+        return False
+    print("Session Previous Session Dectected Using")
+    session = session[0]
+    s = SESSION.post(f"{BASE_URL}/dashboard",cookies=session)
+    if s.url.split("/")[-1] != "dashboard":
+        print("Session Invalid")
+        return False
+    print("Session Valid")
+    input("[Enter]")
+    return True
+
+import time
+
+def chat_loop(username="User"):
+    clear_screen()
+    """The main persistent chat interaction loop."""
+    print(f"\n--- 👋 Welcome to Dummy Chat, {username}! ---")
+    print("Type 'exit' or 'quit' to end the session.")
+    
+    while True:
+        # Get user input
+        user_input = input(f"{username} > ").strip()
+        
+        # Check for exit commands
+        if user_input.lower() in ['exit', 'quit']:
+            print("\n🚪 Logging out. Goodbye!")
+            break
+        
+        # Check for specific interaction triggers
+        if user_input.lower() == 'hi':
+            response = "Hello there! How can I help you today?"
+        elif user_input.lower() == 'hello':
+            response = "Greetings! What's on your mind?"
+        elif user_input.lower() == 'how are you':
+            response = "I'm just a dummy chat bot, but thanks for asking!"
+        else:
+            # Default response for anything else
+            response = f"You said: '{user_input}'. I don't understand that command."
+
+        # Display the bot's response
+        print(f"🤖 Bot > **{response}**")
 
 def loginCredentails():
     clear_screen()
@@ -63,6 +127,10 @@ def registerDevice(username):
         if data.ok:
             print(data.json().get("msg"))
             input("[Enter]")
+    except JSONDecodeError:
+        print("[Error] No Json Dectected  !!SESSION MIGHT BE INVALID!!")
+        input("[Enter]")
+        return "logout"
     except Exception as e:
         print(f"[Err] {str(e)}")
         input("[Enter]")
@@ -87,12 +155,15 @@ def removeRegisteredDevice(username):
                         if data.ok:
                             print(msg)
                             input("[Enter]")
+        except JSONDecodeError:
+            print("[Error] No Json Dectected  !!SESSION MIGHT BE INVALID!!")
         except Exception as e:
             print(f"{str(e)}")
             input("[Enter]")
 
 def logout(username):
     clear_screen()
+    Sessions.truncate()
     SESSION.post(f"{BASE_URL}/logout",json={"username":username})
 
 def WebuiToken(username):
@@ -106,9 +177,13 @@ def WebuiToken(username):
             input("[Enter] Press Enter To Continue")
         else:
             raise Exception(f"Request Err On Server Side Code: {requestData.status_code}")
+    except JSONDecodeError:
+        print("[Error] No Json Dectected  !!SESSION MIGHT BE INVALID!!")
+        input("[Enter]")
+        return "logout"
     except Exception as e:
         print(f"[Error] {str(e)}")
-        input("Error")
+        input("[Error]")
 
 def getAllToken(username):
     try:
@@ -133,6 +208,10 @@ def getAllToken(username):
                 if stat.ok:
                     msg = stat.json().get('msg')
                     print(f"Session Deleted {msg}")
+    except JSONDecodeError:
+        print("[Error] No Json Dectected  !!SESSION MIGHT BE INVALID!!")
+        input("[Enter]")
+        return "logout"
     except Exception as e:
         print(f"{str(e)}")
         input("[Enter] Continue")
@@ -146,14 +225,13 @@ def saveFile(data):
 def genDeviceFingerprint():
     clear_screen()
     # Generate device fingerprint
-    generator = ProductionFingerprintGenerator()
-    fingerprint_data = generator.generate_fingerprint()
-    return fingerprint_data['fingerprint_hash']
+    cipher = sha256()
+    cipher.update(gma().encode())
+    return cipher.digest().hex()
 
 def displaygenDeviceFingerprint():
     copy = None
-    generator = ProductionFingerprintGenerator()
-    DevID = generator.generate_fingerprint()['fingerprint_hash']
+    DevID = genDeviceFingerprint()
     while copy not in ['y','n']:
         clear_screen()
         print(f"Device Fingerprint: {DevID}")
@@ -262,48 +340,113 @@ def decrypt_challenge(private_key, challenge_b64: str) -> str:
 def verify_challenge(answer,username):
     device_id = genDeviceFingerprint()
     x = SESSION.post(f"{BASE_URL}/challenge/verify",data={"username":username,"answer":answer,"deviceid":device_id},allow_redirects=False)
-    print(x.cookies)
-    input("Enter")
+    if SESSION.cookies.get_dict().get("session_token"):
+        input("[Enter] Login Succesfull")
+        return
+    input("[Error] Login Invalid")
+    return
 
 # ----------------------
 # Actions
 # ----------------------
-def login():
+def login(sessionExsist=False):
     try:
         clear_screen()
-        print("[Login] Starting challenge-response login...")
         username, pin, encrypted_blob = load_encrypted_private_key()
-        private_key_bytes = decrypt_private_key(encrypted_blob, pin)
-        private_key = load_private_key_from_bytes(private_key_bytes)
-        challenge_b64 = request_challenge(username)
-        response = decrypt_challenge(private_key, challenge_b64)
-        verify_challenge(response,username)
-        print(f"[Success] Logged In")
-        cookies = SESSION.cookies.get_dict()
+        if not sessionExsist:
+            print("[Login] Starting challenge-response login...")
+            private_key_bytes = decrypt_private_key(encrypted_blob, pin)
+            private_key = load_private_key_from_bytes(private_key_bytes)
+            challenge_b64 = request_challenge(username)
+            response = decrypt_challenge(private_key, challenge_b64)
+            verify_challenge(response,username)
+            print(f"[Success] Logged In")
+            cookies = SESSION.cookies.get_dict()
+            Sessions.truncate()
+            Sessions.insert(cookies)
         options = {
         "LogOut": logout,
-        "Register A Device": registerDevice,
-        "Remove A Device":removeRegisteredDevice,
-        "WebUI Access Token":WebuiToken,
-        "See All Tokens":getAllToken,
+        "Register A Device -  Adds Devices To Trust List": registerDevice,
+        "Remove A Device - Removes Devices From Trust List":removeRegisteredDevice,
+        "WebUI Access Token - Generates A Token For Web Session":WebuiToken,
+        "WebUI Token Session Controll":getAllToken,
+        "Chat - dummy chat system":chat_loop,
         "See Device ID":displaygenDeviceFingerprint,
     }
-        title = "CryptoLogin"
-
-        while cookies == SESSION.cookies.get_dict():
+        title = f"CryptoLogin   \n Session:{SESSION.cookies.get_dict().get('session_token')}\n\n"
+        invalidsess = None
+        while invalidsess != "logout":
             option = pick(list(options.keys()), title)            
             action = options.get(option[0])
             if action == displaygenDeviceFingerprint:
                 action()
             elif action == logout:
-                action(username)
+                invalidsess = action(username)
                 return
             elif action:
-                action(username)
+                invalidsess = action(username)
     except Exception as e:
         print(f"[Error] {str(e)}")
         input("[Enter To Continue]")
 
+def pin_generator():
+    return hex(int.from_bytes(os.urandom(32)))[2:]
+
+def privateKeyAES(private_pem: bytes, user,filename: str = None) -> dict:
+    pin = pin_generator()
+
+    # Generate random salt and nonce
+    salt = os.urandom(16)  # 128-bit salt
+    nonce = os.urandom(12)  # 96-bit nonce for AESGCM
+
+    # Derive a 32-byte key (AES-256) from PIN using PBKDF2
+    kdf = PBKDF2HMAC(
+        algorithm=hashes.SHA256(),
+        length=32,
+        salt=salt,
+        iterations=200_000,
+    )
+    key = kdf.derive(pin.encode())
+
+    # Encrypt the private key
+    aesgcm = AESGCM(key)
+    ciphertext = aesgcm.encrypt(nonce, private_pem, None)
+
+    # Combine salt + nonce + ciphertext
+    encrypted_blob = salt + nonce + ciphertext
+    b64_encrypted = base64.b64encode(encrypted_blob).decode('utf-8')
+    if not filename:
+        filename = f"private_key_enc_{uuid.uuid4().hex}.clog"
+    data = {"Private_Key" : b64_encrypted , "Pin" : str(pin), "username" : user , "filename":filename}
+
+    return data
+
+
+def gen_public_private_key(user:str,Device_id) -> tuple:
+    try:
+        private_key = rsa.generate_private_key(
+        public_exponent=65537,
+        key_size=2048,
+    )
+        print("b")
+        public_key = private_key.public_key()
+        private_pem = private_key.private_bytes(
+            encoding=Encoding.PEM,
+            format=PrivateFormat.PKCS8,
+            encryption_algorithm=NoEncryption()
+        )
+        public_pem = public_key.public_bytes(
+        encoding=Encoding.PEM,
+        format=PublicFormat.SubjectPublicKeyInfo)
+        name = str(uuid.uuid4())+".json"
+        data = privateKeyAES(private_pem,user,name)
+        print("a")
+        SESSION.post(f"{BASE_URL}/PublicKey",json={"user":user,"publicKey":public_pem.decode("utf-8"),"Device_id":Device_id})
+        print("c")
+        return data
+
+    except Exception as e:
+        return {"status": "Err", "msg":f"{str(e)}"}
 
 def register():
     clear_screen()
@@ -312,9 +455,7 @@ def register():
         device_id = genDeviceFingerprint()
         username = input("Enter Username: ")
         loginFile = SESSION.post(f"{BASE_URL}/register",json={"username":username,"device_id":device_id})
-        print(loginFile)
-        data = loginFile.json()
-        data = data.get('file')
+        data = gen_public_private_key(username,device_id)
         data['filename'] = f"{data['username']}.clog"
         saveFile(data)
     except Exception as e:
@@ -332,6 +473,9 @@ def quit_program():
 # Menu Loop
 # ----------------------
 def main():
+    validsess = validatesession()
+    if validsess:
+        login(validsess)
     options = {
         "Login": login,
         "Register": register,
