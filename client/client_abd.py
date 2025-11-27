@@ -9,7 +9,6 @@ from cryptography.hazmat.primitives import hashes
 from cryptography.hazmat.primitives.ciphers.aead import AESGCM
 from cryptography.hazmat.primitives.serialization import load_der_private_key
 from cryptography.hazmat.primitives.asymmetric import padding
-from device_fingerprinting.production_fingerprint import ProductionFingerprintGenerator
 from tinydb import TinyDB , Query
 import pyperclip
 from getmac import get_mac_address as gma
@@ -37,28 +36,44 @@ Creds = ClientDB.table("credentials")
 Sessions = ClientDB.table('sessions')
 
 CredQ = Query()
-
 # ----------------------
 # Helper Functions
 # ----------------------
 from pick import pick
 
 def validatesession():
+    """
+    Check if we have a saved session and whether the session_token on the server is still valid.
+    Standardized Sessions DB format: {'username': <str>, 'session_token': <str>}
+    """
     clear_screen()
-    session = Sessions.all()
-    if len(session) == 0:
+    sessions = Sessions.all()
+    if not sessions:
         return False
-    print("Session Previous Session Dectected Using")
-    session = session[0]
-    s = SESSION.post(f"{BASE_URL}/dashboard",cookies=session)
-    if s.url.split("/")[-1] != "dashboard":
-        print("Session Invalid")
-        return False
-    print("Session Valid")
-    input("[Enter]")
-    return True
 
-import time
+    sess_doc = sessions[0]
+    token = sess_doc.get("session_token")
+
+    if not token:
+        print("No session token found in stored session.")
+        print(token)
+        return False
+
+    # Build cookie mapping correctly
+    cookies = {"session_token": token}
+
+    try:
+        # Use GET or POST depending on your server; use allow_redirects=False to inspect redirect
+        resp = SESSION.get(f"{BASE_URL}/chat", cookies=cookies, allow_redirects=False)
+
+        if resp.status_code == 200:
+            SESSION.cookies.set('session_token',token)
+            return True
+        return False
+    except Exception as e:
+        print(f"[Error] validating session failed: {e}")
+        
+        return False
 
 def chat_loop(username="User"):
     clear_screen()
@@ -89,11 +104,10 @@ def chat_loop(username="User"):
         # Display the bot's response
         print(f"🤖 Bot > **{response}**")
 
-def loginCredentails():
+def loginCredentails(SessionValid):
     clear_screen()
     print("accessing db")
     all_docs = Creds.all()
-    print(all_docs)
     count = len(all_docs)
 
     # If exactly one credential document, return it
@@ -109,10 +123,17 @@ def loginCredentails():
         options.append(label)
 
     title = "Select Credentials To Use"
-    selected, index = pick(options, title)
-    # Get the corresponding document (based on index)
-    chosen_doc = all_docs[index]
-    return Creds.get(doc_id=chosen_doc.doc_id)
+    if not SessionValid:
+        selected, index = pick(options, title)
+        chosen_doc = all_docs[index]
+        return chosen_doc
+    else:
+        session_docs = Sessions.all()
+        if not session_docs:
+            return None
+        session_doc = session_docs[0]
+        stored_username = session_doc.get("username")
+        return Creds.get(CredQ.username == stored_username)
         
 # "LogOut": logout,
 
@@ -122,6 +143,7 @@ def registerDevice(username):
         did = ""
         while len(did) != 128:
             did = input("[Input] Enter Device id To Register its 128 chars long: ")
+            if did.strip().lower() == "exit":return
 
         data = SESSION.post(f"{BASE_URL}/register/device",json={"username":username,"deviceid":did})
         if data.ok:
@@ -146,11 +168,15 @@ def removeRegisteredDevice(username):
                 if data.ok:
                     for k in devs:
                         print(f"{devs.index(k)} : {k}")
-                    index = input("[Input] Enter Device id To Register its 128 chars long: ")
+                    index = input("[Input] Enter Device id To Remove The Device: ")
+                    if len(devs) == 0:
+                        print("No Device IDs Found")
+                        input("[Enter]")
+                        break
                     if index.strip().lower() == "exit":
                         break
                     elif int(index) in range(len(devs)):
-                        data = SESSION.post(f"{BASE_URL}/register/device/delete",json={"username":username,"deviceid":devs[index]})
+                        data = SESSION.post(f"{BASE_URL}/register/device/delete",json={"username":username,"deviceid":devs[int(index)]})
                         msg = data.json()["msg"]
                         if data.ok:
                             print(msg)
@@ -174,7 +200,11 @@ def WebuiToken(username):
         print("[Info] Generating WebToken")       
         if requestData.ok:
             print(f"New Web Token: {data["msg"]}")
-            input("[Enter] Press Enter To Continue")
+            output = input("[Info] Would You Like To Copy (y/n) ?")
+            if output.strip().lower() == "y":
+                pyperclip.copy(data["msg"])
+            else:
+                return
         else:
             raise Exception(f"Request Err On Server Side Code: {requestData.status_code}")
     except JSONDecodeError:
@@ -236,17 +266,19 @@ def displaygenDeviceFingerprint():
         clear_screen()
         print(f"Device Fingerprint: {DevID}")
         copy = input("Would You Like To Copy The ID? (y/n)").lower()
-        if copy == 'y':pyperclip.copy(DevID)    
+        if copy == 'y':pyperclip.copy(DevID)
         else: return
 
 def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 
-def load_encrypted_private_key():
+def load_encrypted_private_key(SessionValid):
     """Load encrypted private key and PIN from local JSON file."""
     try:
-        data = loginCredentails()
+        data = loginCredentails(SessionValid)
+        print(data)
+        
         username = data["username"]
         pin = data["Pin"]
         blob = base64.b64decode(data["Private_Key"])
@@ -317,7 +349,7 @@ def request_challenge(username: str):
         return resp.json().get("challenge")
     except Exception as e:
         print(f"[Error] Challenge request failed: {e}")
-        sys.exit(1)
+        return
 
 
 def decrypt_challenge(private_key, challenge_b64: str) -> str:
@@ -341,8 +373,10 @@ def verify_challenge(answer,username):
     device_id = genDeviceFingerprint()
     x = SESSION.post(f"{BASE_URL}/challenge/verify",data={"username":username,"answer":answer,"deviceid":device_id},allow_redirects=False)
     if SESSION.cookies.get_dict().get("session_token"):
+        input(x.cookies.get_dict())
         input("[Enter] Login Succesfull")
         return
+    print(SESSION.cookies.get_dict())
     input("[Error] Login Invalid")
     return
 
@@ -352,18 +386,21 @@ def verify_challenge(answer,username):
 def login(sessionExsist=False):
     try:
         clear_screen()
-        username, pin, encrypted_blob = load_encrypted_private_key()
+        username, pin, encrypted_blob = load_encrypted_private_key(sessionExsist)
+        print("[Login] Starting challenge-response login...")
+        private_key_bytes = decrypt_private_key(encrypted_blob, pin)
+        private_key = load_private_key_from_bytes(private_key_bytes)
         if not sessionExsist:
-            print("[Login] Starting challenge-response login...")
-            private_key_bytes = decrypt_private_key(encrypted_blob, pin)
-            private_key = load_private_key_from_bytes(private_key_bytes)
             challenge_b64 = request_challenge(username)
             response = decrypt_challenge(private_key, challenge_b64)
             verify_challenge(response,username)
-            print(f"[Success] Logged In")
-            cookies = SESSION.cookies.get_dict()
-            Sessions.truncate()
-            Sessions.insert(cookies)
+            token = SESSION.cookies.get_dict().get("session_token")
+            if not token:
+                Sessions.truncate()
+                print("[Warning] no session_token found after login — login may have failed.")
+            else:
+                Sessions.insert({"username": username, "session_token": token})
+        token = SESSION.cookies.get_dict().get("session_token")
         options = {
         "LogOut": logout,
         "Register A Device -  Adds Devices To Trust List": registerDevice,
@@ -373,9 +410,10 @@ def login(sessionExsist=False):
         "Chat - dummy chat system":chat_loop,
         "See Device ID":displaygenDeviceFingerprint,
     }
-        title = f"CryptoLogin   \n Session:{SESSION.cookies.get_dict().get('session_token')}\n\n"
+        cookies = SESSION.cookies.get_dict().get('session_token')
+        title = f"CryptoLogin   \n Session:{cookies}\n\n User:{username}"
         invalidsess = None
-        while invalidsess != "logout":
+        while invalidsess != "logout" and cookies != None:
             option = pick(list(options.keys()), title)            
             action = options.get(option[0])
             if action == displaygenDeviceFingerprint:
@@ -453,7 +491,9 @@ def register():
     try:
         print("[System] Generating DeviceID")
         device_id = genDeviceFingerprint()
-        username = input("Enter Username: ")
+        username = input("Enter Username (type exit to quit): ")
+        if username.strip() == 'exit' or username.strip() == "":
+            return None
         loginFile = SESSION.post(f"{BASE_URL}/register",json={"username":username,"device_id":device_id})
         data = gen_public_private_key(username,device_id)
         data['filename'] = f"{data['username']}.clog"

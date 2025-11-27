@@ -54,7 +54,7 @@ registerPage = open("static/register.html").read()
 
 SERVER = "http://127.0.0.1:5000"
 
-EXEMPT_ROUTES = ['login', 'register', 'challenge', 'verify','registerhtml','genWebSession','PublicKey','rec_public_key']
+EXEMPT_ROUTES = ['login', 'register', 'challenge', 'verify','registerhtml','genWebSession','PublicKey','rec_public_key','/register/device','registedevice']
 
 @app.before_request
 def checkSession():
@@ -81,6 +81,7 @@ def registedevice():
     try:
         username = request.json["username"]
         deviceid = request.json["deviceid"]
+        print(username,deviceid)
         addDeviceTouser(username,deviceid)
         return jsonify({"status":"ok","msg":"Device Added"}), 200
     except Exception as e:
@@ -94,6 +95,8 @@ def removeDevice():
         DoesUserExsist = checkUser(username)
         if DoesUserExsist:
             status = removeDeviceFromuser(username,deviceid)
+            if status ==  None:
+                return jsonify({"status":"ok","msg":"One Device Remaining Can't Delete"})
             if status:
                 return jsonify({"status":"ok","msg":"Device Removed"}), 200
             return jsonify({"status":"ok","msg":"Device Not Found"}), 400
@@ -109,6 +112,8 @@ def register():
         device_id = data['device_id']
         with db_lock:
             existing_user = users.get(UserQ.username == username)
+        if len(username) == 0:
+            return jsonify({"status": "Err", "msg":"No User Exsist"}), 201
         if existing_user is not None:
             logging.info(f"""{{"status": "Err", "msg":"User Already Exsists/Registered"}} 201""")
             return jsonify({"status": "Err", "msg":"User Already Exsists/Registered"}), 201
@@ -204,7 +209,7 @@ def verify():
             sessionid,expiretime = genSession(username)
             #print(sessionid,expiretime)
             # #print(sessionid)
-            resp = make_response(redirect(url_for("userdashboard")))
+            resp = make_response("", 204)
             resp.set_cookie("session_token",sessionid,samesite="Lax",expires=expiretime)
             logging.info(f"Successfull Completed The Challenge for the user {username}")
             return resp
@@ -222,7 +227,7 @@ def genWebSession():
     username = checkToken(token)
     if username:
         sessionid,expirytime = genSession(username,token)
-        resp = make_response(redirect(url_for("userdashboard")))
+        resp = make_response(redirect(url_for("chats")))
         resp.set_cookie("session_token",sessionid,samesite="Lax",expires=expirytime)
         logging.info(f"Successfull Completed The Challenge for the user {username}")
         return resp
@@ -232,14 +237,6 @@ def genWebSession():
 """@app.route("/test", methods=["GET"])
 def test_route():
     return jsonify({"message": "Server is running!"})"""
-
-
-@app.route("/dashboard",methods=['GET'])
-def userdashboard():
-    token = request.cookies.get("session_token")
-    user = getUserFromSession(token)
-    logging.info(f"User {user} Logged In SucessFully")
-    return render_template('dashboard.html', Username=user)
 
 @app.route("/logout",methods=['POST'])
 def logout():
@@ -461,8 +458,11 @@ def removeDeviceFromuser(username,deviceid):
         if deviceid in data:
             data.remove(deviceid)
             with db_lock:
-                users.update({"devices":data},UserQ.username == username)
-                return True
+                userdata = users.get(UserQ.username == username)
+                if len(userdata.get("devices")) > 1:
+                    users.update({"devices":data},UserQ.username == username)
+                    return True
+                else:return None
     return False
 
 def addDeviceTouser(username,deviceid):
