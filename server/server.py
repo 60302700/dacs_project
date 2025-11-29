@@ -147,7 +147,7 @@ def rec_public_key():
         }
             with db_lock:
                 public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
-                logging.info(f"Added PublicKey for user {user}")
+            logging.info(f"Added PublicKey for user {user}")
             return True
     except Exception as e:
         logging.info(f"""{"status":"Err","msg":str(e)}, 400""")
@@ -522,4 +522,3 @@ def chats():
 if __name__ == '__main__':
     threading.Thread(target=expiry_monitor, daemon=True).start()
     app.run(host='0.0.0.0', port=5000,debug=True,use_reloader=False)
-    ##print(getUserFromSession('a2a9db1c-6884-4f6c-9ef0-b4f29e21bb53'))
