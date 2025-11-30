@@ -29,7 +29,7 @@ from cryptography.hazmat.primitives import hashes
 import uuid
 
 #BASE_URL = "https://127.0.0.1:443"
-BASE_URL = "https://127.0.0.1:5000"
+BASE_URL = "http://127.0.0.1:5000"
 SESSION = requests.Session()
 
 ClientDB = TinyDB("clientsidedb.json")
