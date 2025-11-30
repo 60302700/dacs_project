@@ -47,18 +47,21 @@ Implement the real login flow: the server sends a random challenge; the client s
 with its private key; the server verifies the signature using the stored public key. No
 password is ever transmitted or stored.
 
-- [ ] Phase 4.5: Fix Server Database Issue
+- [x] Phase 4.5: Fix Server Database Issue
   Bruh I really can't, just try running it yourself
 
-- [ ] Phase 5: Integrity / Device Binding with Hashing
+- [x] Phase 5: Integrity / Device Binding with Hashing
 When a device registers, the server stores its public key and device info, and also
 stores a hash (e.g. SHA-256) of that record. On later logins, the server re-checks the
 hash to detect unauthorized changes.
 
-- [ ] Phase 6: Multi-Device & Revocation
+- [x] Phase 6: Multi-Device & Revocation
 Allow users to register multiple devices (each with its own key pair), view active devices,
 and revoke a lost/stolen device so it can no longer authenticate. Prepare final demo,
 documentation, and threat model.
 
+- [x] Phase 7: Cleanup & ironing the code 
+A phase simply dedicated to cleaning up the code and the repo, as well as penetration testing any possible vulnerabilities and bugs we found.
+Intergrating the CLI with The Backend Features (Error Handling)
 
 
