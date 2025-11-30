@@ -525,3 +525,5 @@ def chats():
 if __name__ == '__main__':
     threading.Thread(target=expiry_monitor, daemon=True).start()
     app.run(host='0.0.0.0', port=5000,debug=True,use_reloader=False)
+    #app.run(host='0.0.0.0', port=443,debug=True,use_reloader=False,ssl_context='adhoc')
+    #app.run(host='0.0.0.0', port=443,debug=True,use_reloader=False,ssl_context=("cert.pem","key.pem"))
