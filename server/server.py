@@ -113,10 +113,10 @@ def register():
         with db_lock:
             existing_user = users.get(UserQ.username == username)
         if len(username) == 0:
-            return jsonify({"status": "Err", "msg":"No User Exsist"}), 201
+            return jsonify({"status": "Err", "msg":"No User Exsist"}), 400
         if existing_user is not None:
             logging.info(f"""{{"status": "Err", "msg":"User Already Exsists/Registered"}} 201""")
-            return jsonify({"status": "Err", "msg":"User Already Exsists/Registered"}), 201
+            return jsonify({"status": "Err", "msg":"User Already Exsists/Registered"}), 300
     
         if existing_user is None:
             new_doc = {
@@ -130,7 +130,7 @@ def register():
         return jsonify({"status": "ok", "msg":"Successfull Registrered","user":username,"device_id":device_id}), 201
     except Exception as e:
         logging.info(f"{str(e)}")
-        #print(f"{str(e)}")
+        return jsonify({"status": "Err", "msg": "Internal Server Error"}), 500
 
 
 @app.route("/PublicKey",methods=["POST"])
@@ -139,6 +139,9 @@ def rec_public_key():
         publicKey = request.json["publicKey"]
         user = request.json["user"]
         Device_id = request.json["Device_id"]
+        userexsist = public_key_db.get(PubKeyQ.record_id == user)
+        if userexsist is not None:
+            return jsonify({"status": "Err", "msg":"User Already Exsists/Registered"}), 300
         if checkUser(user):
             document = {
             'record_id':user,
@@ -148,7 +151,7 @@ def rec_public_key():
             with db_lock:
                 public_key_db.upsert(document,PubKeyQ.record_id == document.get("record_id"))
             logging.info(f"Added PublicKey for user {user}")
-            return True
+            return jsonify({"status":"ok","msg":"Public Key Generated"}), 200
     except Exception as e:
         logging.info(f"""{"status":"Err","msg":str(e)}, 400""")
         return jsonify({"status":"Err","msg":str(e)}), 400
