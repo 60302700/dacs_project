@@ -466,7 +466,6 @@ def gen_public_private_key(user:str,Device_id) -> tuple:
         public_exponent=65537,
         key_size=2048,
     )
-        print("b")
         public_key = private_key.public_key()
         private_pem = private_key.private_bytes(
             encoding=Encoding.PEM,
@@ -478,9 +477,15 @@ def gen_public_private_key(user:str,Device_id) -> tuple:
         format=PublicFormat.SubjectPublicKeyInfo)
         name = str(uuid.uuid4())+".json"
         data = privateKeyAES(private_pem,user,name)
-        print("a")
-        SESSION.post(f"{BASE_URL}/PublicKey",json={"user":user,"publicKey":public_pem.decode("utf-8"),"Device_id":Device_id})
-        print("c")
+        try:
+            output = SESSION.post(f"{BASE_URL}/PublicKey",json={"user":user,"publicKey":public_pem.decode("utf-8"),"Device_id":Device_id})
+            msg = output.json()
+            if msg["status"] == "Err":
+                print(msg["msg"])
+                input("[Enter]")
+        except Exception as e:
+            print(f"[Error] {str(e)}")
+            input("[Enter]")
         return data
 
     except Exception as e:
